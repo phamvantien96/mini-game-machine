@@ -14,8 +14,6 @@
 
 int main(void){
 	System_Init();
-	uint32_t clk = SysCtlClockGet();
 	while(1) {
-		uint32_t valSysTick = SysTickPeriodGet();
 	}
 }

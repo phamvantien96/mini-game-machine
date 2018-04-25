@@ -18,6 +18,7 @@
 #include <driverlib/sysctl.h>
 #include <driverlib/systick.h>
 #include <driverlib/gpio.h>
+#include <driverlib/interrupt.h>
 #include <inc/hw_memmap.h>
 #include <inc/tm4c123gh6pm.h>
 
@@ -35,6 +36,8 @@
  *  @return void
  */
 void System_Init(void);
+
+void SysTick_Handler(void);
 
 
 #endif /* SRC_CONFIG_H_ */
