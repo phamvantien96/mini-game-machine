@@ -20,10 +20,10 @@
 /// GLOBAL VARIABLE
 ///
 ///****************************************************************************
-int16_t _width, _height, cursor_x, cursor_y;
-uint16_t textcolor, textbgcolor;
-uint8_t	textsize,	rotation;
-bool
+static int16_t _width, _height, cursor_x, cursor_y;
+static uint16_t textcolor, textbgcolor;
+static uint8_t	textsize,	rotation;
+static bool
 	wrap,   // If set, 'wrap' text at right edge of display
 	_cp437; // If set, use correct CP437 charset (default is off)
 
