@@ -12,6 +12,18 @@
 ///****************************************************************************
 #include "config.h"
 
+///****************************************************************************
+///
+/// PROTOTYPE PRIVATE FUNCTION
+///
+///****************************************************************************
+static void SysTick_Handler(void);
+
+///****************************************************************************
+///
+/// FUNCTION IMPLEMENTATION
+///
+///****************************************************************************
 void System_Init(void)
 {
     ///
@@ -53,9 +65,30 @@ void System_Init(void)
 					 GPIO_STRENGTH_2MA,
 					 GPIO_PIN_TYPE_STD_WPU);
 	GPIOPinTypeGPIOInput(GPIO_PORTF_BASE, GPIO_PIN_0);
+
+	///
+	///  UART Init
+	///
+	/* Active UART0 clock and wait for it is ready */
+	SysCtlPeripheralEnable(SYSCTL_PERIPH_UART0);
+	while (!SysCtlPeripheralReady(SYSCTL_PERIPH_UART0));
+
+	/* Active PA0, PA1 and choose function UART0 */
+	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);
+	while (!SysCtlPeripheralReady(SYSCTL_PERIPH_GPIOA));
+	GPIOPinTypeUART(GPIO_PORTA_BASE, GPIO_PIN_0 | GPIO_PIN_1);
+
+	/* Config UART at 115200 baudrate 8-N-1 frame format*/
+	UARTConfigSetExpClk(UART0_BASE,
+						SysCtlClockGet(), 115200,
+						(UART_CONFIG_WLEN_8   |
+						 UART_CONFIG_STOP_ONE |
+						 UART_CONFIG_PAR_NONE ));
+
 }
 
-void SysTick_Handler(void)
+static void SysTick_Handler(void)
 {
 	GPIO_PORTF_DATA_R ^= GPIO_PIN_1;
+	UARTCharPut(UART0_BASE, 'c');
 }
