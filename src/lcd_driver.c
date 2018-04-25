@@ -388,3 +388,38 @@ void setRotation(uint8_t x) {
 	// For 9341, init default full-screen address window:
 	setAddrWindow(0, 0, _width - 1, _height - 1); // CS_IDLE happens here
 }
+
+void fillRect(int16_t x1, int16_t y1, int16_t w, int16_t h,
+  uint16_t fillcolor) {
+  int16_t  x2, y2;
+
+  // Initial off-screen clipping
+  if( (w            <= 0     ) ||  (h             <= 0      ) ||
+      (x1           >= _width) ||  (y1            >= _height) ||
+     ((x2 = x1+w-1) <  0     ) || ((y2  = y1+h-1) <  0      )) return;
+  if(x1 < 0) { // Clip left
+    w += x1;
+    x1 = 0;
+  }
+  if(y1 < 0) { // Clip top
+    h += y1;
+    y1 = 0;
+  }
+  if(x2 >= _width) { // Clip right
+    x2 = _width - 1;
+    w  = x2 - x1 + 1;
+  }
+  if(y2 >= _height) { // Clip bottom
+    y2 = _height - 1;
+    h  = y2 - y1 + 1;
+  }
+
+  setAddrWindow(x1, y1, x2, y2);
+  flood(fillcolor, (uint32_t)w * (uint32_t)h);
+  setLR();
+}
+
+void fillScreen(uint16_t color) {
+  setAddrWindow(0, 0, _width - 1, _height - 1);
+  flood(color, (long)TFTWIDTH * (long)TFTHEIGHT);
+}

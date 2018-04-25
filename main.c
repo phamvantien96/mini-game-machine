@@ -27,6 +27,8 @@ int main(void){
 		drawPixel(10, 21, RED);
 
 		drawFastHLine(50, 50, 100, RED);
+
+		fillScreen(GREEN);
 		SysTick_Wait1ms(50);
 	}
 }

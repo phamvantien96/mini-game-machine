@@ -1,7 +1,7 @@
 /** @file lcd_driver.c
  *  @author Tung.T.T
  *  @date 24-Apr-2018
- *  @breif The file contains the prototype of lcd driver
+ *  @brief The file contains the prototype of lcd driver
  */
 
 #ifndef SRC_LCD_DRIVER_H_
@@ -141,7 +141,7 @@
 /// PROTOTYPE
 ///
 ///****************************************************************************
-/** @breif SysTick_Init
+/** @brief SysTick_Init
  *
  *  This function use for initial the SysTick
  *
@@ -151,110 +151,131 @@
 void SysTick_Init(void);
 
 
-/** @breif
+/** @brief
  *
  *  @param void
  *  @return void
  */
 void SysTick_Wait(unsigned long);
 
-/** @breif
+/** @brief
  *
  *  @param void
  *  @return void
  */
 void SysTick_Wait1ms(unsigned long delay);
 
-/** @breif
+/** @brief
  *
  *  @param void
  *  @return void
  */
 void SysTick_Wait10ms(unsigned long);
 
-/** @breif
+/** @brief
  *
  *  @param void
  *  @return void
  */
 void GPIO_Init(void);
 
-/** @breif
+/** @brief
  *
  *  @param void
  *  @return void
  */
 void setAddrWindow(int x1, int y1, int x2, int y2);
 
-/** @breif
+/** @brief
  *
  *  @param void
  *  @return void
  */
 void LCD_init(void);
 
-/** @breif
+/** @brief
  *
  *  @param void
  *  @return void
  */
 void LCD_begin(void);
 
-/** @breif
+/** @brief
  *
  *  @param void
  *  @return void
  */
 void LCD_reset(void);
 
-/** @breif
+/** @brief
  *
  *  @param void
  *  @return void
  */
 void writeRegister32(uint8_t, uint32_t);
 
-/** @breif
+/** @brief
  *
  *  @param void
  *  @return void
  */
 void drawPixel(int16_t x, int16_t y, uint16_t color);
 
-/** @breif
+/** @brief
  *
  *  @param void
  *  @return void
  */
 void drawFastHLine(int16_t x0, int16_t y0, int16_t w, uint16_t color);
 
-/** @breif
+/** @brief
  *
  *  @param void
  *  @return void
  */
 void drawFastVLine(int16_t x0, int16_t y0, int16_t h, uint16_t color);
 
-/** @breif
+/** @brief
  *
  *  @param void
  *  @return void
  */
 void setLR(void);
 
-/** @breif
+/** @brief
  *
  *  @param void
  *  @return void
  */
 void flood(uint16_t color, uint32_t len);
 
-/** @breif
+/** @brief
  *
  *  @param void
  *  @return void
  */
 void setRotation(uint8_t x);
 
+
+/** @brief
+ *
+ *  @param void
+ *  @return void
+ */
+void setRotation(uint8_t x);
+
+/** @brief
+ *
+ *  @param void
+ *  @return void
+ */
+void fillRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t c);
+
+/** @brief
+ *
+ *  @param void
+ *  @return void
+ */
+void fillScreen(uint16_t color);
 
 #endif /* SRC_LCD_DRIVER_H_ */
