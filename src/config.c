@@ -19,4 +19,7 @@ void System_Init(void)
 				   SYSCTL_USE_PLL    |
 				   SYSCTL_XTAL_16MHZ |
 				   SYSCTL_OSC_MAIN	 );
+
+	SysTickPeriodSet(8E6);
+	SysTickEnable();
 }
