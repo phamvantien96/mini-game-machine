@@ -84,11 +84,8 @@ void System_Init(void)
 						(UART_CONFIG_WLEN_8   |
 						 UART_CONFIG_STOP_ONE |
 						 UART_CONFIG_PAR_NONE ));
-
 }
 
 static void SysTick_Handler(void)
 {
-	GPIO_PORTF_DATA_R ^= GPIO_PIN_1;
-	UARTCharPut(UART0_BASE, 'c');
 }

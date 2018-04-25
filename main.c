@@ -15,5 +15,7 @@
 int main(void){
 	System_Init();
 	while(1) {
+		uint32_t data = UARTCharGet(UART0_BASE);
+		UARTCharPut(UART0_BASE, data);
 	}
 }

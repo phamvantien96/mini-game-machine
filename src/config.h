@@ -18,7 +18,6 @@
 #include <driverlib/sysctl.h>
 #include <driverlib/systick.h>
 #include <driverlib/gpio.h>
-#include <driverlib/interrupt.h>
 #include <driverlib/uart.h>
 #include <inc/hw_memmap.h>
 #include <inc/tm4c123gh6pm.h>
@@ -28,7 +27,7 @@
 /// PROTOTYPE
 ///
 ///****************************************************************************
-/** @breif System_Init
+/** @brief System_Init
  *
  *  This one call function is used to initialize the system. It include
  *  initialize system clock, gpio, uart ...
