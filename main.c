@@ -3,6 +3,7 @@
  *  @date 24-Apr-2018
  */
 
+#include <stdlib.h>
 #include <stdbool.h>
 #include <stdint.h>
 #include <driverlib/sysctl.h>
@@ -14,8 +15,25 @@
 
 int main(void){
 	System_Init();
+	uint8_t * pData;
+	pData = (uint8_t *) calloc(100, sizeof(uint8_t));
+	int32_t i;
 	while(1) {
-		uint32_t data = UARTCharGet(UART0_BASE);
-		UARTCharPut(UART0_BASE, data);
+		i = 0;
+		while(1 == UARTCharsAvail(UART0_BASE))
+		{
+			pData[i] = (uint8_t) UARTCharGetNonBlocking(UART0_BASE);
+			if(0 == i)		GPIO_PORTF_DATA_R = 0x02;
+			else			GPIO_PORTF_DATA_R = 0;
+			i++;
+		}
+
+		GPIO_PORTF_DATA_R = 0x04;
+
+		while(i)
+		{
+			UARTCharPut(UART0_BASE, pData[i-1]);
+			i--;
+		}
 	}
 }
