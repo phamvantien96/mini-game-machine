@@ -1,5 +1,5 @@
 /** @file main.c
- *  @author Tien.P.V
+ *  @author Tung.T.T
  *  @date 24-Apr-2018
  */
 

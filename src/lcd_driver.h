@@ -240,6 +240,13 @@ void drawFastVLine(int16_t x0, int16_t y0, int16_t h, uint16_t color);
  *  @param void
  *  @return void
  */
+void drawRGBBitmap(int16_t x, int16_t y, const uint16_t bitmap[], int16_t w, int16_t h);
+
+/** @brief
+ *
+ *  @param void
+ *  @return void
+ */
 void setLR(void);
 
 /** @brief

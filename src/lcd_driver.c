@@ -263,6 +263,19 @@ void drawFastVLine(int16_t x, int16_t y, int16_t length, uint16_t color) {
 	setLR();
 }
 
+// Draw a PROGMEM-resident 16-bit image (RGB 5/6/5) at the specified (x,y)
+// position.  For 16-bit display devices; no color reduction performed.
+void drawRGBBitmap(int16_t x, int16_t y,
+  const uint16_t bitmap[], int16_t w, int16_t h) {
+    startWrite();
+    for(int16_t j=0; j<h; j++, y++) {
+        for(int16_t i=0; i<w; i++ ) {
+            drawPixel(x+i, y, pgm_read_word(&bitmap[j * w + i]));
+        }
+    }
+    endWrite();
+}
+
 void setLR(void) {
 	CS_ACTIVE;
 	writeRegisterPair(HX8347G_COLADDREND_HI, HX8347G_COLADDREND_LO, _width - 1)
