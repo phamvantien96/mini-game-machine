@@ -96,193 +96,70 @@
 /*!
  *  Write 8-bit value to LCD data lines
  */
-#define write8inline(d) {  \
+#define write8(d) {  \
 	GPIO_PORTB_DATA_R = d;	 \
 	WR_STROBE; }
-#define write8 write8inline
 
 /*!
  *
  */
-#define read8inline(result) {   \
-	RD_ACTIVE;                    \
-	DELAY(7);                     \
-	result = GPIO_PORTB_DATA_R; 	\
-	RD_IDLE; }
-#define read8             read8inline
-
-/*!
- *
- */
-#define writeRegister8inline(a, d) { \
+#define writeRegister8(a, d) { \
   CD_COMMAND; write8(a); CD_DATA; write8(d); }
-#define writeRegister8    writeRegister8inline
 
 /*!
  *
  */
-#define writeRegister16inline(a, d) { \
+#define writeRegister16(a, d) { \
   uint8_t hi, lo; \
   hi = (uint8_t) (a) >> 8; lo = (uint8_t) (a); CD_COMMAND; write8(hi); write8(lo); \
   hi = (uint8_t) (d) >> 8; lo = (uint8_t) (d); CD_DATA   ; write8(hi); write8(lo); }
-#define writeRegister16    writeRegister16inline
 
 /*!
  *
  */
-#define writeRegisterPairInline(aH, aL, d) { \
+#define writeRegisterPair(aH, aL, d) { \
   uint8_t hi = (d) >> 8, lo = (d); \
   CD_COMMAND; write8(aH); CD_DATA; write8(hi); \
   CD_COMMAND; write8(aL); CD_DATA; write8(lo); }
-#define writeRegisterPair writeRegisterPairInline
+
+/*!
+ *
+ */
+#ifndef pgm_read_byte
+ #define pgm_read_byte(addr) (*(const unsigned char *)(addr))
+#endif
+#ifndef pgm_read_word
+ #define pgm_read_word(addr) (*(const unsigned short *)(addr))
+#endif
+#ifndef pgm_read_dword
+ #define pgm_read_dword(addr) (*(const unsigned long *)(addr))
+#endif
 
 ///****************************************************************************
 ///
 /// PROTOTYPE
 ///
 ///****************************************************************************
-/** @brief SysTick_Init
- *
- *  This function use for initial the SysTick
- *
- *  @param void
- *  @return void
- */
 void SysTick_Init(void);
-
-
-/** @brief
- *
- *  @param void
- *  @return void
- */
 void SysTick_Wait(unsigned long);
-
-/** @brief
- *
- *  @param void
- *  @return void
- */
 void SysTick_Wait1ms(unsigned long delay);
-
-/** @brief
- *
- *  @param void
- *  @return void
- */
 void SysTick_Wait10ms(unsigned long);
-
-/** @brief
- *
- *  @param void
- *  @return void
- */
 void GPIO_Init(void);
 
-/** @brief
- *
- *  @param void
- *  @return void
- */
 void setAddrWindow(int x1, int y1, int x2, int y2);
-
-/** @brief
- *
- *  @param void
- *  @return void
- */
 void LCD_init(void);
-
-/** @brief
- *
- *  @param void
- *  @return void
- */
 void LCD_begin(void);
-
-/** @brief
- *
- *  @param void
- *  @return void
- */
 void LCD_reset(void);
-
-/** @brief
- *
- *  @param void
- *  @return void
- */
 void writeRegister32(uint8_t, uint32_t);
-
-/** @brief
- *
- *  @param void
- *  @return void
- */
 void drawPixel(int16_t x, int16_t y, uint16_t color);
-
-/** @brief
- *
- *  @param void
- *  @return void
- */
 void drawFastHLine(int16_t x0, int16_t y0, int16_t w, uint16_t color);
-
-/** @brief
- *
- *  @param void
- *  @return void
- */
 void drawFastVLine(int16_t x0, int16_t y0, int16_t h, uint16_t color);
-
-/** @brief
- *
- *  @param void
- *  @return void
- */
 void drawRGBBitmap(int16_t x, int16_t y, const uint16_t bitmap[], int16_t w, int16_t h);
-
-/** @brief
- *
- *  @param void
- *  @return void
- */
 void setLR(void);
-
-/** @brief
- *
- *  @param void
- *  @return void
- */
 void flood(uint16_t color, uint32_t len);
-
-/** @brief
- *
- *  @param void
- *  @return void
- */
+void pushColors(const uint16_t *data, uint32_t len, bool first);
 void setRotation(uint8_t x);
-
-
-/** @brief
- *
- *  @param void
- *  @return void
- */
-void setRotation(uint8_t x);
-
-/** @brief
- *
- *  @param void
- *  @return void
- */
 void fillRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t c);
-
-/** @brief
- *
- *  @param void
- *  @return void
- */
 void fillScreen(uint16_t color);
 
 #endif /* SRC_LCD_DRIVER_H_ */

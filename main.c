@@ -12,6 +12,7 @@
 #include <inc/tm4c123gh6pm.h>
 #include "config.h"
 #include "lcd_driver.h"
+#include "image.h"
 
 int main(void){
 	System_Init();
@@ -20,7 +21,10 @@ int main(void){
 	LCD_reset();
 	LCD_begin();
 	setRotation(0);
+	drawRGBBitmap(0, 0, img_woof.image, img_woof.numCols, img_woof.numRows);
+
 	while(1) {
+		/*
 		drawPixel(10, 20, RED);
 		drawPixel(11, 20, RED);
 		drawPixel(11, 21, RED);
@@ -30,5 +34,6 @@ int main(void){
 
 		fillScreen(GREEN);
 		SysTick_Wait1ms(50);
+		*/
 	}
 }

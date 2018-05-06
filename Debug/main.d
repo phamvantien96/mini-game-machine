@@ -12,6 +12,7 @@ main.obj: D:/ccs_workspace/mini-game-machine/src/config.h
 main.obj: C:/ti/TivaWare_C_Series-2.1.4.178/driverlib/interrupt.h
 main.obj: D:/ccs_workspace/mini-game-machine/src/lcd_driver.h
 main.obj: D:/ccs_workspace/mini-game-machine/src/registers.h
+main.obj: D:/ccs_workspace/mini-game-machine/src/image.h
 
 ../main.c: 
 C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdbool.h: 
@@ -25,3 +26,4 @@ D:/ccs_workspace/mini-game-machine/src/config.h:
 C:/ti/TivaWare_C_Series-2.1.4.178/driverlib/interrupt.h: 
 D:/ccs_workspace/mini-game-machine/src/lcd_driver.h: 
 D:/ccs_workspace/mini-game-machine/src/registers.h: 
+D:/ccs_workspace/mini-game-machine/src/image.h: 

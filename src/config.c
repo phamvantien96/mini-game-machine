@@ -57,5 +57,5 @@ void System_Init(void)
 
 void SysTick_Handler(void)
 {
-	GPIO_PORTF_DATA_R ^= GPIO_PIN_1;
+	//GPIO_PORTF_DATA_R ^= GPIO_PIN_1;
 }

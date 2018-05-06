@@ -177,26 +177,19 @@ void setAddrWindow(int x1, int y1, int x2, int y2) {
 
 void writeRegister32(uint8_t r, uint32_t d) {
 	CS_ACTIVE;
+
 	CD_COMMAND;
-	write8(r)
-	;
+	write8(r);
+
 	CD_DATA;
-	//delayMicroseconds(10);
 	SysTick_Wait1us(10);
-	write8(d >> 24)
-	;
-	//delayMicroseconds(10);
+	write8(d >> 24);
 	SysTick_Wait1us(10);
-	write8(d >> 16)
-	;
-	//delayMicroseconds(10);
+	write8(d >> 16);
 	SysTick_Wait1us(10);
-	write8(d >> 8)
-	;
-	//delayMicroseconds(10);
+	write8(d >> 8);
 	SysTick_Wait1us(10);
-	write8(d)
-	;
+	write8(d);
 	CS_IDLE;
 }
 
@@ -265,16 +258,24 @@ void drawFastVLine(int16_t x, int16_t y, int16_t length, uint16_t color) {
 
 // Draw a PROGMEM-resident 16-bit image (RGB 5/6/5) at the specified (x,y)
 // position.  For 16-bit display devices; no color reduction performed.
-void drawRGBBitmap(int16_t x, int16_t y,
-  const uint16_t bitmap[], int16_t w, int16_t h) {
-    startWrite();
-    for(int16_t j=0; j<h; j++, y++) {
-        for(int16_t i=0; i<w; i++ ) {
-            drawPixel(x+i, y, pgm_read_word(&bitmap[j * w + i]));
+
+void drawRGBBitmap(int16_t x, int16_t y, const uint16_t bitmap[], int16_t w, int16_t h) {
+	/*
+	uint16_t i, j;
+    for(j=0; j<h; j++, y++) {
+        for(i=0; i<w; i++ ) {
+        	//drawPixel(x+i, y, pgm_read_word(&bitmap[j * w + i]));
+        	drawPixel(x+i, y, bitmap[j * w + i]);
         }
     }
-    endWrite();
+	*/
+
+    uint32_t len = w*h;
+    setAddrWindow(x, y, x+w-1, y+h-1);
+    pushColors(bitmap, len, 1);
+
 }
+
 
 void setLR(void) {
 	CS_ACTIVE;
@@ -357,6 +358,25 @@ void flood(uint16_t color, uint32_t len) {
 		}
 	}
 	CS_IDLE;
+}
+
+void pushColors(const uint16_t *data, uint32_t len, bool first) {
+  uint16_t color;
+  uint8_t  hi, lo;
+  CS_ACTIVE;
+  if(first == true) { // Issue GRAM write command only on first call
+    CD_COMMAND;
+    write8(0x2C);
+  }
+  CD_DATA;
+  while(len--) {
+    color = *data++;
+    hi    = color >> 8; // Don't simplify or merge these
+    lo    = color;      // lines, there's macro shenanigans
+    write8(hi);         // going on.
+    write8(lo);
+  }
+  CS_IDLE;
 }
 
 void setRotation(uint8_t x) {
