@@ -18,6 +18,10 @@
 #include <inc/tm4c123gh6pm.h>
 #include "registers.h"
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
 
 ///****************************************************************************
 ///
@@ -256,5 +260,8 @@ void flood(uint16_t color, uint32_t len);
  */
 void setRotation(uint8_t x);
 
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* SRC_LCD_DRIVER_H_ */

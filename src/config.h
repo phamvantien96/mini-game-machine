@@ -22,6 +22,11 @@
 #include <inc/hw_memmap.h>
 #include <inc/tm4c123gh6pm.h>
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 ///****************************************************************************
 ///
 /// PROTOTYPE
@@ -37,5 +42,8 @@
  */
 void System_Init(void);
 
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* SRC_CONFIG_H_ */
