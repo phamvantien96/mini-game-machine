@@ -163,14 +163,11 @@ void setLR(void);
 void flood(uint16_t color, uint32_t len);
 void pushColors(const uint16_t *data, uint32_t len, bool first);
 void setRotation(uint8_t x);
-<<<<<<< HEAD
 void fillRect(int16_t x, int16_t y, int16_t w, int16_t h, uint16_t c);
 void fillScreen(uint16_t color);
-=======
 
 #ifdef __cplusplus
 }
 #endif
->>>>>>> 5a67023fe8a31653a5b6ffcc55163c8c58844645
 
 #endif /* SRC_LCD_DRIVER_H_ */

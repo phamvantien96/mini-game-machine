@@ -34,22 +34,23 @@ static bool
 ///****************************************************************************
 void GPIO_Init() {
 	volatile unsigned long delay;
-	SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOB | SYSCTL_RCGC2_GPIOE;
+//	SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOB | SYSCTL_RCGC2_GPIOE;
+//	delay = SYSCTL_RCGC2_R;
+	SYSCTL_RCGC2_R |= 0x00;
 	delay = SYSCTL_RCGC2_R;
-
 	//Init Port B
-	GPIO_PORTB_AMSEL_R &= ~0xFF;
-	GPIO_PORTB_PCTL_R &= ~0xFF00FFFF;
-	GPIO_PORTB_DIR_R |= 0xFF;
-	GPIO_PORTB_AFSEL_R &= ~0xFF;
-	GPIO_PORTB_DEN_R |= 0xFF;
+//	GPIO_PORTB_AMSEL_R &= ~0xFF;
+//	GPIO_PORTB_PCTL_R &= ~0xFF00FFFF;
+//	GPIO_PORTB_DIR_R |= 0xFF;
+//	GPIO_PORTB_AFSEL_R &= ~0xFF;
+//	GPIO_PORTB_DEN_R |= 0xFF;
 
-	GPIO_PORTE_AMSEL_R &= ~0xFF;
-	GPIO_PORTE_PCTL_R &= ~0xFFFFFFFF;
-	GPIO_PORTE_DIR_R |= 0xFF;
-	GPIO_PORTE_AFSEL_R &= ~0xFF;
-	GPIO_PORTE_DEN_R |= 0xFF;
-	GPIO_PORTE_DATA_R |= 0x1F;
+//	GPIO_PORTE_AMSEL_R &= ~0xFF;
+//	GPIO_PORTE_PCTL_R &= ~0xFFFFFFFF;
+//	GPIO_PORTE_DIR_R |= 0xFF;
+//	GPIO_PORTE_AFSEL_R &= ~0xFF;
+//	GPIO_PORTE_DEN_R |= 0xFF;
+//	GPIO_PORTE_DATA_R |= 0x1F;
 }
 
 void SysTick_Init(void) {

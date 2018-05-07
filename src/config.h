@@ -27,6 +27,9 @@ extern "C"
 {
 #endif
 
+#define PORTE_PIN_USE 0x1F
+#define PORTB_PIN_USE 0xFF
+
 ///****************************************************************************
 ///
 /// PROTOTYPE
