@@ -177,26 +177,19 @@ void setAddrWindow(int x1, int y1, int x2, int y2) {
 
 void writeRegister32(uint8_t r, uint32_t d) {
 	CS_ACTIVE;
+
 	CD_COMMAND;
-	write8(r)
-	;
+	write8(r);
+
 	CD_DATA;
-	//delayMicroseconds(10);
 	SysTick_Wait1us(10);
-	write8(d >> 24)
-	;
-	//delayMicroseconds(10);
+	write8(d >> 24);
 	SysTick_Wait1us(10);
-	write8(d >> 16)
-	;
-	//delayMicroseconds(10);
+	write8(d >> 16);
 	SysTick_Wait1us(10);
-	write8(d >> 8)
-	;
-	//delayMicroseconds(10);
+	write8(d >> 8);
 	SysTick_Wait1us(10);
-	write8(d)
-	;
+	write8(d);
 	CS_IDLE;
 }
 
@@ -262,6 +255,27 @@ void drawFastVLine(int16_t x, int16_t y, int16_t length, uint16_t color) {
 	flood(color, length);
 	setLR();
 }
+
+// Draw a PROGMEM-resident 16-bit image (RGB 5/6/5) at the specified (x,y)
+// position.  For 16-bit display devices; no color reduction performed.
+
+void drawRGBBitmap(int16_t x, int16_t y, const uint16_t bitmap[], int16_t w, int16_t h) {
+	/*
+	uint16_t i, j;
+    for(j=0; j<h; j++, y++) {
+        for(i=0; i<w; i++ ) {
+        	//drawPixel(x+i, y, pgm_read_word(&bitmap[j * w + i]));
+        	drawPixel(x+i, y, bitmap[j * w + i]);
+        }
+    }
+	*/
+
+    uint32_t len = w*h;
+    setAddrWindow(x, y, x+w-1, y+h-1);
+    pushColors(bitmap, len, 1);
+
+}
+
 
 void setLR(void) {
 	CS_ACTIVE;
@@ -346,6 +360,25 @@ void flood(uint16_t color, uint32_t len) {
 	CS_IDLE;
 }
 
+void pushColors(const uint16_t *data, uint32_t len, bool first) {
+  uint16_t color;
+  uint8_t  hi, lo;
+  CS_ACTIVE;
+  if(first == true) { // Issue GRAM write command only on first call
+    CD_COMMAND;
+    write8(0x2C);
+  }
+  CD_DATA;
+  while(len--) {
+    color = *data++;
+    hi    = color >> 8; // Don't simplify or merge these
+    lo    = color;      // lines, there's macro shenanigans
+    write8(hi);         // going on.
+    write8(lo);
+  }
+  CS_IDLE;
+}
+
 void setRotation(uint8_t x) {
 	uint16_t t;
 
@@ -387,4 +420,39 @@ void setRotation(uint8_t x) {
 	; // MADCTL
 	// For 9341, init default full-screen address window:
 	setAddrWindow(0, 0, _width - 1, _height - 1); // CS_IDLE happens here
+}
+
+void fillRect(int16_t x1, int16_t y1, int16_t w, int16_t h,
+  uint16_t fillcolor) {
+  int16_t  x2, y2;
+
+  // Initial off-screen clipping
+  if( (w            <= 0     ) ||  (h             <= 0      ) ||
+      (x1           >= _width) ||  (y1            >= _height) ||
+     ((x2 = x1+w-1) <  0     ) || ((y2  = y1+h-1) <  0      )) return;
+  if(x1 < 0) { // Clip left
+    w += x1;
+    x1 = 0;
+  }
+  if(y1 < 0) { // Clip top
+    h += y1;
+    y1 = 0;
+  }
+  if(x2 >= _width) { // Clip right
+    x2 = _width - 1;
+    w  = x2 - x1 + 1;
+  }
+  if(y2 >= _height) { // Clip bottom
+    y2 = _height - 1;
+    h  = y2 - y1 + 1;
+  }
+
+  setAddrWindow(x1, y1, x2, y2);
+  flood(fillcolor, (uint32_t)w * (uint32_t)h);
+  setLR();
+}
+
+void fillScreen(uint16_t color) {
+  setAddrWindow(0, 0, _width - 1, _height - 1);
+  flood(color, (long)TFTWIDTH * (long)TFTHEIGHT);
 }
