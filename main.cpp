@@ -17,12 +17,11 @@
 
 int main(void){
 	System_Init();
-//	GPIO_Init();
-//	LCD_init();
-//	LCD_reset();
-//	LCD_begin();
-//	setRotation(0);
-//	drawRGBBitmap(0, 0, img_woof.image, img_woof.numCols, img_woof.numRows);
+	LCD_init();
+	LCD_reset();
+	LCD_begin();
+	setRotation(0);
+	drawRGBBitmap(0, 0, img_woof.image, img_woof.numCols, img_woof.numRows);
 
 	uint8_t * pData;
 	pData = (uint8_t *) calloc(100, sizeof(uint8_t));
@@ -38,14 +37,14 @@ int main(void){
 			i++;
 		}
 
-		//GPIO_PORTF_DATA_R |= 0x01;
+		GPIO_PORTF_DATA_R = 0x04;
 
 		if(0 == i)		GPIO_PORTF_DATA_R = 0x02;
 		else			GPIO_PORTF_DATA_R = 0;
-//		while(i)
-//		{
-//			UARTCharPut(UART0_BASE, pData[i-1]);
-//			i--;
-//		}
+		while(i)
+		{
+			UARTCharPut(UART0_BASE, pData[i-1]);
+			i--;
+		}
 	}
 }
