@@ -13,7 +13,6 @@
 #include <inc/tm4c123gh6pm.h>
 #include "config.h"
 #include "image.h"
-#include "Entity.h"
 #include "Global.h"
 
 int main(void){
@@ -24,16 +23,18 @@ int main(void){
 	setRotation(0);
 	int i;
 
-	for(i = 0; i < 100; i++)
-	{
-		WoodBox.ChangeTerrainIdx(i);
-		WoodBox.Draw();
-		SysTick_Wait1ms(100);
-	}
-
 	while(1) {
-		Thuy.Draw();
-		SysTick_Wait1ms(1000/30);
-		Thuy.Move(rand()%4, 1);
+		for(i = 0; i < 100; i++)
+		{
+			WoodBox.ChangeTerrainIdx(rand() % 100);
+			WoodBox.Draw();
+			SysTick_Wait1ms(100);
+		}
+		while(1)
+		{
+		WoodBox.ChangeTerrainIdx(rand() % 100);
+		WoodBox.Clear();
+		SysTick_Wait1ms(100);
+		}
 	}
 }

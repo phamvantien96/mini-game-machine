@@ -17,13 +17,19 @@ extern "C"
 /// DEFINE AND MARCO
 ///
 ///****************************************************************************
-#define SQUARE_SIZE 			24
+#define SQUARE_SIZE_PIXEL 			24
+
+#define MAP_WIDTH					10
+#define MAP_HEIGHT					10
+#define MAX_IDX						(MAP_WIDTH * MAP_HEIGHT)
+#define Y_MAP_OFFSET				48
+#define X_MAP_OFFSET				0
 
 /**
  * Marco calculate x, y from terrain index
  */
-#define X_CALC(idx)				((idx % 10) * SQUARE_SIZE)
-#define Y_CALC(idx)				((idx / 10) * SQUARE_SIZE + SQUARE_SIZE * 2)
+#define X_CALC(idx)		((idx % MAP_WIDTH ) * SQUARE_SIZE_PIXEL + X_MAP_OFFSET)
+#define Y_CALC(idx)		((idx / MAP_HEIGHT) * SQUARE_SIZE_PIXEL + Y_MAP_OFFSET)
 
 ///****************************************************************************
 ///

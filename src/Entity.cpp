@@ -93,3 +93,4 @@ void Entity::Destroy()
 {
 	Clear();
 }
+
