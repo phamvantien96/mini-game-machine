@@ -25,6 +25,8 @@ void static inline GPIO_Init(void);
 /// FUNCTION IMPLEMENTATION
 ///
 ///****************************************************************************
+
+
 void static inline GPIO_Init(void)
 {
 	/* Active PortE clock and wait for it is ready */
@@ -50,6 +52,10 @@ void static inline GPIO_Init(void)
 	GPIOPinTypeGPIOOutput(GPIO_PORTB_BASE, PORTB_PIN_USE);
 }
 
+
+
+
+
 void System_Init(void)
 {
     ///
@@ -65,8 +71,8 @@ void System_Init(void)
 	///
 	/* Set 0.1 second period interrupt */
 	SysTickPeriodSet(8E6-1);
-	//SysTickIntRegister(SysTick_Handler);
-	//SysTickIntEnable();
+	SysTickIntRegister(SysTick_Handler);
+	SysTickIntEnable();
 	SysTickEnable();
 
 	///
@@ -92,7 +98,7 @@ void System_Init(void)
 					 GPIO_PIN_TYPE_STD_WPU);
 	GPIOPinTypeGPIOInput(GPIO_PORTF_BASE, GPIO_PIN_0);
 
-	GPIO_Init();
+	//GPIO_Init();
 
 	///
 	///  UART Init
@@ -112,8 +118,10 @@ void System_Init(void)
 						(UART_CONFIG_WLEN_8   |
 						 UART_CONFIG_STOP_ONE |
 						 UART_CONFIG_PAR_NONE ));
+
 }
 
-// static void SysTick_Handler(void)
-//{
-//}
+void SysTick_Handler(void)
+{
+	 ADCProcessorTrigger(ADC0_BASE, 2);
+}

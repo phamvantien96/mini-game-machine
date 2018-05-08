@@ -147,7 +147,6 @@ extern "C"
 void SysTick_Init(void);
 void SysTick_Wait(unsigned long);
 void SysTick_Wait1ms(unsigned long delay);
-void SysTick_Wait10ms(unsigned long);
 void GPIO_Init(void);
 
 void setAddrWindow(int x1, int y1, int x2, int y2);

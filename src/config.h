@@ -21,6 +21,7 @@
 #include <driverlib/uart.h>
 #include <inc/hw_memmap.h>
 #include <inc/tm4c123gh6pm.h>
+#include "joystick.h"
 
 #ifdef __cplusplus
 extern "C"
@@ -44,7 +45,7 @@ extern "C"
  *  @return void
  */
 void System_Init(void);
-
+void SysTick_Handler(void);
 #ifdef __cplusplus
 }
 #endif
