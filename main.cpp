@@ -24,34 +24,8 @@ int main(void){
 	setRotation(0);
 
 	while(1) {
-		int i;
-
-		for(i = 0; i < 200; i++)
-		{
-			Thuy.Draw();
-			SysTick_Wait1ms(1000/30);
-			Thuy.Move(RIGHT, 2);
-		}
-
-		for(i = 0; i < 200; i++)
-		{
-			Thuy.Draw();
-			SysTick_Wait1ms(1000/30);
-			Thuy.Move(LEFT, 2);
-		}
-
-		for(i = 0; i < 200; i++)
-		{
-			Thuy.Draw();
-			SysTick_Wait1ms(1000/30);
-			Thuy.Move(DOWN, 3);
-		}
-
-		for(i = 0; i < 200; i++)
-		{
-			Thuy.Draw();
-			SysTick_Wait1ms(1000/30);
-			Thuy.Move(UP, 3);
-		}
+		Thuy.Draw();
+		SysTick_Wait1ms(1000/30);
+		Thuy.Move(rand()%4, 1);
 	}
 }

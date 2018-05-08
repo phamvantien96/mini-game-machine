@@ -6,7 +6,7 @@ Entity::Entity(image_t _image)
 }
 
 Entity::Entity(point_t _point, life_t _life, image_t _image)
-:point((point_t){0, 0}), life(_life), image(_image)
+:point((point_t){_point.x, _point.y}), life(_life), image(_image)
 {
 }
 
