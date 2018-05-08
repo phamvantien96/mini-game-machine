@@ -139,6 +139,8 @@ extern "C"
  #define pgm_read_dword(addr) (*(const unsigned long *)(addr))
 #endif
 
+extern int16_t _width, _height;
+
 ///****************************************************************************
 ///
 /// PROTOTYPE
