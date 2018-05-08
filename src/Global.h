@@ -28,6 +28,7 @@ extern unsigned long Semaphore;
 extern unsigned long FrameCount;
 
 extern Entity Thuy;
+extern dir_t joystick_dir;
 
 ///****************************************************************************
 ///

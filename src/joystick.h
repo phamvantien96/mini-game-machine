@@ -7,6 +7,8 @@
 #ifndef SRC_JOYSTICK_H_
 #define SRC_JOYSTICK_H_
 
+
+
 #ifdef __cplusplus
 extern "C"
 {
@@ -17,6 +19,7 @@ extern "C"
 #include <driverlib/sysctl.h>
 #include <driverlib/adc.h>
 #include <inc/hw_memmap.h>
+#include "definitions.h"
 
 #define ADC_BASE 		ADC0_BASE
 #define ADC_SEQUENCE 	2

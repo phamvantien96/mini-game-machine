@@ -22,14 +22,12 @@
 #include <inc/hw_memmap.h>
 #include <inc/tm4c123gh6pm.h>
 #include "joystick.h"
+#include "definitions.h"
 
 #ifdef __cplusplus
 extern "C"
 {
 #endif
-
-#define PORTE_PIN_USE 0x1F
-#define PORTB_PIN_USE 0xFF
 
 ///****************************************************************************
 ///

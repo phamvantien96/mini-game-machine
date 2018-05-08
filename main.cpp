@@ -15,17 +15,14 @@
 #include "image.h"
 #include "Entity.h"
 #include "Global.h"
+#include "joystick.h"
+
+uint32_t ui32Value[2];
 
 int main(void){
 	System_Init();
-	LCD_init();
-	LCD_reset();
-	LCD_begin();
-	setRotation(0);
+	ADC_Init();
 
 	while(1) {
-		Thuy.Draw();
-		SysTick_Wait1ms(1000/30);
-		Thuy.Move(rand()%4, 1);
 	}
 }

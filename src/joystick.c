@@ -7,6 +7,7 @@
 #include "joystick.h"
 
 extern uint32_t ui32Value[2];
+extern dir_t joystick_dir;
 
 void ADC_Init(void)
 {
@@ -33,7 +34,19 @@ void ADC_Init(void)
 }
 
 void Joystick_Handler(void)
-{
+{	uint32_t x, y;
 	ADCIntClear(ADC_BASE, ADC_SEQUENCE);
 	ADCSequenceDataGet(ADC_BASE, ADC_SEQUENCE, ui32Value);
+	x = ui32Value[1];
+	y = ui32Value[0];
+	if (x>y) {
+		if		((x+y)<4096 && y<1024)  joystick_dir = UP;
+		else if ((x+y)>=4096 && x>3072) joystick_dir = RIGHT;
+		else 							joystick_dir = STAY;
+	} else {
+		if		((x+y)<4096 && x<1024)  joystick_dir = LEFT;
+		else if ((x+y)>=4096 && y>3072) joystick_dir = DOWN;
+		else 							joystick_dir = STAY;
+	}
+
 }
