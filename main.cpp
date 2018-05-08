@@ -12,8 +12,9 @@
 #include <inc/hw_memmap.h>
 #include <inc/tm4c123gh6pm.h>
 #include "config.h"
-#include "lcd_driver.h"
 #include "image.h"
+#include "Entity.h"
+#include "Global.h"
 
 int main(void){
 	System_Init();
@@ -21,30 +22,36 @@ int main(void){
 	LCD_reset();
 	LCD_begin();
 	setRotation(0);
-	drawRGBBitmap(0, 0, img_woof.image, img_woof.numCols, img_woof.numRows);
-
-	uint8_t * pData;
-	pData = (uint8_t *) calloc(100, sizeof(uint8_t));
-	int32_t i;
 
 	while(1) {
-		i = 0;
-		while(1 == UARTCharsAvail(UART0_BASE))
+		int i;
+
+		for(i = 0; i < 200; i++)
 		{
-			pData[i] = (uint8_t) UARTCharGetNonBlocking(UART0_BASE);
-			if(0 == i)		GPIO_PORTF_DATA_R = 0x02;
-			else			GPIO_PORTF_DATA_R = 0;
-			i++;
+			Thuy.Draw();
+			SysTick_Wait1ms(1000/30);
+			Thuy.Move(RIGHT, 2);
 		}
 
-		GPIO_PORTF_DATA_R = 0x04;
-
-		if(0 == i)		GPIO_PORTF_DATA_R = 0x02;
-		else			GPIO_PORTF_DATA_R = 0;
-		while(i)
+		for(i = 0; i < 200; i++)
 		{
-			UARTCharPut(UART0_BASE, pData[i-1]);
-			i--;
+			Thuy.Draw();
+			SysTick_Wait1ms(1000/30);
+			Thuy.Move(LEFT, 2);
+		}
+
+		for(i = 0; i < 200; i++)
+		{
+			Thuy.Draw();
+			SysTick_Wait1ms(1000/30);
+			Thuy.Move(DOWN, 3);
+		}
+
+		for(i = 0; i < 200; i++)
+		{
+			Thuy.Draw();
+			SysTick_Wait1ms(1000/30);
+			Thuy.Move(UP, 3);
 		}
 	}
 }

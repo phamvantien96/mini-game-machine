@@ -1,34 +1,84 @@
 #include "Entity.h"
 
-Entity::Entity()
+Entity::Entity(image_t _image)
+:point((point_t){0, 0}), life(0), image(_image)
 {
-	point.x = 0;
-	point.y = 0;
-	life = 0;
 }
 
-Entity::Entity(point_t _point, uint32_t _life)
-:life(_life)
+Entity::Entity(point_t _point, life_t _life, image_t _image)
+:point((point_t){0, 0}), life(_life), image(_image)
 {
-	point.x = _point.x;
-	point.y = _point.y;
 }
 
-void Entity::Move(dir_t _dir, uint32_t distance)
+void Entity::Move(dir_t _dir, distance_t distance)
 {
+	point_t endPixel = {point.x + image.numCols - 1, point.y + image.numRows - 1};
+
     switch(_dir)
     {
         case LEFT:
-            point.x -= distance;
+        	if(point.x < distance)	distance = point.x;
+
+        	/* If distance = 0 we no change anything*/
+			if(0 != distance)
+			{
+				setAddrWindow(endPixel.x - distance + 1, point.y, endPixel.x, endPixel.y);
+				flood(BLACK, distance * image.numRows);
+				point.x -= distance;
+			}
             break;
         case RIGHT:
-            point.x += distance;
+        	if(endPixel.x + distance >= _width)	 distance = _width - endPixel.x - 1;
+
+        	/* If distance = 0 we no change anything*/
+        	if(0 != distance)
+        	{
+				setAddrWindow(point.x, point.y, point.x + distance - 1, endPixel.y);
+				flood(BLACK, distance * image.numRows);
+				point.x += distance;
+        	}
             break;
         case UP:
-            point.y -= distance;
+        	if(point.y < distance)	distance = point.y;
+        	/* If distance = 0 we no change anything*/
+			if(0 != distance)
+			{
+				setAddrWindow(point.x, endPixel.y - distance + 1, endPixel.x, endPixel.y);
+				flood(BLACK, distance * image.numCols);
+				point.y -= distance;
+			}
             break;
         case DOWN:
-            point.y += distance;
+        	if(endPixel.y + distance >= _height)	distance = _height - endPixel.y - 1;
+        	/* If distance = 0 we no change anything*/
+			if(0 != distance)
+			{
+				setAddrWindow(point.x, point.y, endPixel.x, point.y + distance - 1);
+				flood(BLACK, distance * image.numCols);
+				point.y += distance;
+			}
             break;
     }
+
+    if(0 != distance)    Draw();
+}
+
+
+void Entity::Draw()
+{
+	setAddrWindow(point.x, point.y, point.x + image.numCols - 1, point.y + image.numRows - 1);
+
+	pushColors(image.image, image.numCols * image.numRows, 1);
+}
+
+/** @breif Entity::Clear
+ *
+ * 	Default clear entity with BLACK color
+ *
+ */
+void Entity::Clear()
+{
+	setAddrWindow(point.x, point.y, point.x + image.numCols - 1, point.y + image.numRows - 1);
+
+	flood(BLACK, image.numCols * image.numRows);
 }

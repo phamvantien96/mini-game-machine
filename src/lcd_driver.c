@@ -20,7 +20,7 @@
 /// GLOBAL VARIABLE
 ///
 ///****************************************************************************
-static int16_t _width, _height, cursor_x, cursor_y;
+int16_t _width, _height, cursor_x, cursor_y;
 static uint16_t textcolor, textbgcolor;
 static uint8_t	textsize,	rotation;
 static bool
@@ -108,7 +108,7 @@ void LCD_begin(void) {
 
 	writeRegister8(ILI9341_POWERCONTROL1, 0x23)
 	;
-	//writeRegister8(ILI9341_POWERCONTROL1, 0x07);
+//	writeRegister8(ILI9341_POWERCONTROL1, 0x07);
 	writeRegister8(ILI9341_POWERCONTROL2, 0x10)
 	;
 	writeRegister16(ILI9341_VCOMCONTROL1, 0x2B2B)
