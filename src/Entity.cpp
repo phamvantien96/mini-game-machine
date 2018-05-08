@@ -1,3 +1,8 @@
+/** @file Entity.cpp
+ *  @author Tien.P.V
+ *  @date 07-May-2018
+ */
+
 #include "Entity.h"
 
 Entity::Entity(image_t _image)
@@ -50,6 +55,7 @@ void Entity::Move(dir_t _dir, distance_t distance)
             break;
         case DOWN:
         	if(endPixel.y + distance >= _height)	distance = _height - endPixel.y - 1;
+
         	/* If distance = 0 we no change anything*/
 			if(0 != distance)
 			{
@@ -81,4 +87,9 @@ void Entity::Clear()
 	setAddrWindow(point.x, point.y, point.x + image.numCols - 1, point.y + image.numRows - 1);
 
 	flood(BLACK, image.numCols * image.numRows);
+}
+
+void Entity::Destroy()
+{
+	Clear();
 }

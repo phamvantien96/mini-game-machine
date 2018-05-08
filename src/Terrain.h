@@ -1,43 +1,37 @@
-/** @file Global.h
+/** @file Terrain.h
  *  @author Tien.P.V
- *  @date 07-May-2018
+ *  @date 08-May-2018
  */
 
-#ifndef _GLOBAL_H_
-#define _GLOBAL_H_
+#ifndef SRC_TERRAIN_H_
+#define SRC_TERRAIN_H_
 
-#include <stdint.h>
-#include <stdbool.h>
-#include "inc/tm4c123gh6pm.h"
 #include "Entity.h"
-#include "image.h"
 
 #ifdef __cplusplus
-extern "C" 
+extern "C"
 {
 #endif  /* __cplusplus */
 
 ///****************************************************************************
 ///
-/// EXTERNAL VARIABLE
+/// TYPEDEF
 ///
 ///****************************************************************************
 
-extern unsigned long TimerCount;
-extern unsigned long Semaphore;
-extern unsigned long FrameCount;
-
-extern Entity Thuy;
 
 ///****************************************************************************
 ///
-/// FUNCTION PROTOTYPE
+/// CLASS PROTOTYPE
 ///
 ///****************************************************************************
-void Init(void);
-	
+class Terrain:public Entity {
+public:
+
+};
+
 #ifdef __cplusplus
 }
-#endif
+#endif  /* __cplusplus */
 
-#endif
+#endif /* SRC_TERRAIN_H_ */

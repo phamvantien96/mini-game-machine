@@ -1,4 +1,4 @@
-/** @file main.c
+/** @file main.cpp
  *  @author Tien.P.V
  *  @date 24-Apr-2018
  */

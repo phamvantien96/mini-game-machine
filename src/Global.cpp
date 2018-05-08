@@ -1,3 +1,8 @@
+/** @file Global.cpp
+ *  @author Tien.P.V
+ *  @date 07-May-2018
+ */
+
 #include "Global.h"
 
 unsigned long TimerCount;
