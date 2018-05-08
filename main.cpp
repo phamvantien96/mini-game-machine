@@ -22,6 +22,14 @@ int main(void){
 	LCD_reset();
 	LCD_begin();
 	setRotation(0);
+	int i;
+
+	for(i = 0; i < 100; i++)
+	{
+		WoodBox.ChangeTerrainIdx(i);
+		WoodBox.Draw();
+		SysTick_Wait1ms(100);
+	}
 
 	while(1) {
 		Thuy.Draw();
