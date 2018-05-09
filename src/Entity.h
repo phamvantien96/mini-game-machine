@@ -10,34 +10,12 @@
 #include <stdbool.h>
 #include "image.h"
 #include "lcd_driver.h"
+#include "definitions.h"
 
 #ifdef __cplusplus
 extern "C" 
 {
 #endif  /* __cplusplus */
-
-/*
- * Direction for entity move
- */
-#define LEFT 		0
-#define RIGHT 		1
-#define UP 	 		2
-#define DOWN 		3
-
-///****************************************************************************
-///
-/// TYPEDEF
-///
-///****************************************************************************
-typedef struct {
-    uint32_t x;
-    uint32_t y;
-}point_t;
-
-typedef uint8_t dir_t;
-typedef uint32_t life_t;
-typedef uint32_t distance_t;
-
 ///****************************************************************************
 ///
 /// CLASS PROTOTYPE

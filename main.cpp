@@ -14,6 +14,9 @@
 #include "config.h"
 #include "image.h"
 #include "Global.h"
+#include "joystick.h"
+
+uint32_t ui32Value[2];
 
 int main(void){
 	System_Init();
@@ -32,9 +35,9 @@ int main(void){
 		}
 		while(1)
 		{
-		WoodBox.ChangeTerrainIdx(rand() % 100);
-		WoodBox.Clear();
-		SysTick_Wait1ms(100);
+			WoodBox.ChangeTerrainIdx(rand() % 100);
+			WoodBox.Clear();
+			SysTick_Wait1ms(100);
 		}
 	}
 }

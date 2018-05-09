@@ -21,14 +21,13 @@
 #include <driverlib/uart.h>
 #include <inc/hw_memmap.h>
 #include <inc/tm4c123gh6pm.h>
+#include "joystick.h"
+#include "definitions.h"
 
 #ifdef __cplusplus
 extern "C"
 {
 #endif
-
-#define PORTE_PIN_USE 0x1F
-#define PORTB_PIN_USE 0xFF
 
 ///****************************************************************************
 ///
@@ -44,7 +43,7 @@ extern "C"
  *  @return void
  */
 void System_Init(void);
-
+void SysTick_Handler(void);
 #ifdef __cplusplus
 }
 #endif

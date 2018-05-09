@@ -7,4 +7,5 @@
 
 Entity Thuy((point_t) {120-12, 160-16}, 1, img_thuy);
 Terrain WoodBox(1, img_wood_box, 2);
+dir_t joystick_dir = STAY;
 
