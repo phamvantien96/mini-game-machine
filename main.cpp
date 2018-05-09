@@ -21,7 +21,7 @@ uint32_t ui32Value[2];
 
 int main(void){
 	System_Init();
-	ADC_Init();
+//	ADC_Init();
 
 	while(1) {
 	}
