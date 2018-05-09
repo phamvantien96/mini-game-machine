@@ -30,5 +30,4 @@ int main(void){
 		Thuy.Draw();
 		SysTick_Wait1ms(100);
 		Thuy.Move(RIGHT, 1);
-	}
 }

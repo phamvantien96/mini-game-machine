@@ -20,6 +20,8 @@
 #include <driverlib/gpio.h>
 #include <driverlib/uart.h>
 #include <inc/hw_memmap.h>
+#include "inc/hw_types.h"
+#include "inc/hw_gpio.h"
 #include <inc/tm4c123gh6pm.h>
 #include "joystick.h"
 #include "definitions.h"
@@ -44,6 +46,7 @@ extern "C"
  */
 void System_Init(void);
 void SysTick_Handler(void);
+void Switch_Handler(void);
 #ifdef __cplusplus
 }
 #endif
