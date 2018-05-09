@@ -84,8 +84,7 @@ void LCD_Reset(void) {
 	// Data transfer sync
 	CS_ACTIVE;
 	CD_COMMAND;
-	write8(0x00)
-	;
+	write8(0x00);
 	for (i = 0; i < 3; i++)
 		WR_STROBE; // Three extra 0x00s
 	CS_IDLE;
@@ -135,13 +134,10 @@ void drawPixel(int16_t x, int16_t y, uint16_t color) {
 	setAddrWindow(x, y, TFTWIDTH - 1, TFTHEIGHT - 1);
 	CS_ACTIVE;
 	CD_COMMAND;
-	write8(0x2C)
-	;
+	write8(0x2C);
 	CD_DATA;
-	write8(color >> 8)
-	;
-	write8(color)
-	;
+	write8(color >> 8);
+	write8(color);
 	CS_IDLE;
 }
 
@@ -192,16 +188,6 @@ void drawFastVLine(int16_t x, int16_t y, int16_t length, uint16_t color) {
 // position.  For 16-bit display devices; no color reduction performed.
 
 void drawRGBBitmap(int16_t x, int16_t y, const uint16_t bitmap[], int16_t w, int16_t h) {
-	/*
-	uint16_t i, j;
-    for(j=0; j<h; j++, y++) {
-        for(i=0; i<w; i++ ) {
-        	//drawPixel(x+i, y, pgm_read_word(&bitmap[j * w + i]));
-        	drawPixel(x+i, y, bitmap[j * w + i]);
-        }
-    }
-	*/
-
     uint32_t len = w*h;
     setAddrWindow(x, y, x+w-1, y+h-1);
     pushColors(bitmap, len, 1);
@@ -225,15 +211,12 @@ void flood(uint16_t color, uint32_t len) {
 
 	CS_ACTIVE;
 	CD_COMMAND;
-	write8(0x2C)
-	;
+	write8(0x2C);
 
 	// Write first pixel normally, decrement counter by 1
 	CD_DATA;
-	write8(hi)
-	;
-	write8(lo)
-	;
+	write8(hi);
+	write8(lo);
 	len--;
 
 	blocks = (uint16_t) (len / 64); // 64 pixels/block
@@ -262,29 +245,19 @@ void flood(uint16_t color, uint32_t len) {
 		while (blocks--) {
 			i = 16; // 64 pixels/block / 4 pixels/pass
 			do {
-				write8(hi)
-				;
-				write8(lo)
-				;
-				write8(hi)
-				;
-				write8(lo)
-				;
-				write8(hi)
-				;
-				write8(lo)
-				;
-				write8(hi)
-				;
-				write8(lo)
-				;
+				write8(hi);
+				write8(lo);
+				write8(hi);
+				write8(lo);
+				write8(hi);
+				write8(lo);
+				write8(hi);
+				write8(lo);
 			} while (--i);
 		}
 		for (i = (uint8_t) len & 63; i--;) {
-			write8(hi)
-			;
-			write8(lo)
-			;
+			write8(hi);
+			write8(lo);
 		}
 	}
 	CS_IDLE;
@@ -308,49 +281,6 @@ void pushColors(const uint16_t *data, uint32_t len, bool first) {
   }
   CS_IDLE;
 }
-
-//void setRotation(uint8_t x) {
-//	uint16_t t;
-//
-//	rotation = (x & 3);
-//	switch (rotation) {
-//	case 0:
-//	case 2:
-//		TFTWIDTH = TFTWIDTH;
-//		TFTHEIGHT = TFTHEIGHT;
-//		break;
-//	case 1:
-//	case 3:
-//		TFTWIDTH = TFTHEIGHT;
-//		TFTHEIGHT = TFTWIDTH;
-//		break;
-//	}
-//	// Then perform hardware-specific rotation operations...
-//
-//	CS_ACTIVE;
-//
-//	// MEME, HX8357D uses same registers as 9341 but different values
-//
-//	switch (rotation) {
-//	case 2:
-//		t = ILI9341_MADCTL_MX | ILI9341_MADCTL_BGR;
-//		break;
-//	case 3:
-//		t = ILI9341_MADCTL_MV | ILI9341_MADCTL_BGR;
-//		break;
-//	case 0:
-//		t = ILI9341_MADCTL_MY | ILI9341_MADCTL_BGR;
-//		break;
-//	case 1:
-//		t = ILI9341_MADCTL_MX | ILI9341_MADCTL_MY | ILI9341_MADCTL_MV
-//				| ILI9341_MADCTL_BGR;
-//		break;
-//	}
-//	writeRegister8(ILI9341_MADCTL, t )
-//	; // MADCTL
-//	// For 9341, init default full-screen address window:
-//	setAddrWindow(0, 0, TFTWIDTH - 1, TFTHEIGHT - 1); // CS_IDLE happens here
-//}
 
 void fillRect(int16_t x1, int16_t y1, int16_t w, int16_t h,
   uint16_t fillcolor) {
