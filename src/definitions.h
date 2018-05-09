@@ -20,6 +20,8 @@ extern "C"
 #define PORTE_PIN_USE 0x1F
 #define PORTB_PIN_USE 0xFF
 
+#define ONE_MSEC 13333
+#define ONE_USEC 14
 ///****************************************************************************
 ///
 /// TYPEDEF

@@ -36,7 +36,9 @@ extern dir_t joystick_dir;
 ///
 ///****************************************************************************
 void Init(void);
-	
+void Delay1ms(uint32_t t);
+void Delay1us(uint32_t t);
+
 #ifdef __cplusplus
 }
 #endif

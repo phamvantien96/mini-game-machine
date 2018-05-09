@@ -17,128 +17,59 @@
 
 ///****************************************************************************
 ///
-/// GLOBAL VARIABLE
-///
-///****************************************************************************
-int16_t _width, _height, cursor_x, cursor_y;
-static uint16_t textcolor, textbgcolor;
-static uint8_t	textsize,	rotation;
-static bool
-	wrap,   // If set, 'wrap' text at right edge of display
-	_cp437; // If set, use correct CP437 charset (default is off)
-
-///****************************************************************************
-///
 /// FUNCTION IMPLEMENT
 ///
 ///****************************************************************************
-void GPIO_Init() {
-	volatile unsigned long delay;
-//	SYSCTL_RCGC2_R |= SYSCTL_RCGC2_GPIOB | SYSCTL_RCGC2_GPIOE;
-//	delay = SYSCTL_RCGC2_R;
-	SYSCTL_RCGC2_R |= 0x00;
-	delay = SYSCTL_RCGC2_R;
-	//Init Port B
-//	GPIO_PORTB_AMSEL_R &= ~0xFF;
-//	GPIO_PORTB_PCTL_R &= ~0xFF00FFFF;
-//	GPIO_PORTB_DIR_R |= 0xFF;
-//	GPIO_PORTB_AFSEL_R &= ~0xFF;
-//	GPIO_PORTB_DEN_R |= 0xFF;
 
-//	GPIO_PORTE_AMSEL_R &= ~0xFF;
-//	GPIO_PORTE_PCTL_R &= ~0xFFFFFFFF;
-//	GPIO_PORTE_DIR_R |= 0xFF;
-//	GPIO_PORTE_AFSEL_R &= ~0xFF;
-//	GPIO_PORTE_DEN_R |= 0xFF;
-//	GPIO_PORTE_DATA_R |= 0x1F;
-}
+extern void Delay1ms(uint32_t t);
+extern void Delay1us(uint32_t t);
 
-void SysTick_Init(void) {
-	NVIC_ST_CTRL_R = 0;               // disable SysTick during setup
-	NVIC_ST_CTRL_R = 0x00000005;      // enable SysTick with core clock
-}
-// The delay parameter is in units of the 80 MHz core clock. (12.5 ns)
-void SysTick_Wait(unsigned long delay) {
-	NVIC_ST_RELOAD_R = delay - 1;  // number of counts to wait
-	NVIC_ST_CURRENT_R = 0;       // any value written to CURRENT clears
-	while ((NVIC_ST_CTRL_R & 0x00010000) == 0) { // wait for count flag
-	}
-}
-// 800000*12.5ns equals 10ms
-void SysTick_Wait1ms(unsigned long delay) {
-	unsigned long i;
-	for (i = 0; i < delay; i++) {
-		SysTick_Wait(80000);  // wait 10ms
-	}
-}
-
-void SysTick_Wait1us(unsigned long delay) {
-	unsigned long i;
-	for (i = 0; i < delay; i++) {
-		SysTick_Wait(80);  // wait 10ms
-	}
-}
-
-void LCD_init(void) {
-	CS_IDLE; // Set all control bits to idle state
+void LCD_Begin(void) {
+	// Set all control bits to idle state
+	CS_IDLE;
 	WR_IDLE;
 	RD_IDLE;
 	CD_DATA;
-
 	RS_SET;
-	rotation = 0;
-	cursor_y = cursor_x = 0;
-	textsize = 1;
-	textcolor = 0xFFFF;
-	_width = TFTWIDTH;
-	_height = TFTHEIGHT;
-}
 
-void LCD_begin(void) {
 	// uint16_t a, d;
-	LCD_reset();
-	SysTick_Wait1ms(200);
+	LCD_Reset();
+	Delay1ms(200);
 	CS_ACTIVE;
-	writeRegister8(ILI9341_SOFTRESET, 0)
-	;
+	writeRegister8(ILI9341_SOFTRESET, 0);
 	//delay(50);
-	SysTick_Wait1ms(50);
-	writeRegister8(ILI9341_DISPLAYOFF, 0)
-	;
+	Delay1ms(50);
+	writeRegister8(ILI9341_DISPLAYOFF, 0);
 
-	writeRegister8(ILI9341_POWERCONTROL1, 0x23)
-	;
+	writeRegister8(ILI9341_POWERCONTROL1, 0x23);
 //	writeRegister8(ILI9341_POWERCONTROL1, 0x07);
-	writeRegister8(ILI9341_POWERCONTROL2, 0x10)
-	;
-	writeRegister16(ILI9341_VCOMCONTROL1, 0x2B2B)
-	;
-	writeRegister8(ILI9341_VCOMCONTROL2, 0xC0)
-	;
-	writeRegister8(ILI9341_MEMCONTROL, ILI9341_MADCTL_MY | ILI9341_MADCTL_BGR)
-	;
-	writeRegister8(ILI9341_PIXELFORMAT, 0x55)
-	;
-	writeRegister16(ILI9341_FRAMECONTROL, 0x001B)
-	;
+	writeRegister8(ILI9341_POWERCONTROL2, 0x10);
+	writeRegister16(ILI9341_VCOMCONTROL1, 0x2B2B);
+	writeRegister8(ILI9341_VCOMCONTROL2, 0xC0);
+	writeRegister8(ILI9341_MEMCONTROL, ILI9341_MADCTL_MY | ILI9341_MADCTL_BGR);
+	writeRegister8(ILI9341_PIXELFORMAT, 0x55);
+	writeRegister16(ILI9341_FRAMECONTROL, 0x001B);
 
-	writeRegister8(ILI9341_ENTRYMODE, 0x07)
-	;
+	writeRegister8(ILI9341_ENTRYMODE, 0x07);
 	/* writeRegister32(ILI9341_DISPLAYFUNC, 0x0A822700);*/
 
-	writeRegister8(ILI9341_SLEEPOUT, 0)
-	;
+	writeRegister8(ILI9341_SLEEPOUT, 0);
 	//delay(150);
-	SysTick_Wait1ms(150);
+	Delay1ms(150);
 	writeRegister8(ILI9341_DISPLAYON, 0)
 	;
 	//delay(500);
-	SysTick_Wait1ms(500);
+	Delay1ms(500);
 	setAddrWindow(0, 0, TFTWIDTH - 1, TFTHEIGHT - 1);
+
+	CS_ACTIVE;
+	writeRegister8(ILI9341_MADCTL, ILI9341_MADCTL_MY | ILI9341_MADCTL_BGR);
+	setAddrWindow(0, 0, _width - 1, _height - 1);
+
 	return;
 }
 
-void LCD_reset(void) {
+void LCD_Reset(void) {
 	uint8_t i;
 
 	CS_IDLE;
@@ -147,7 +78,7 @@ void LCD_reset(void) {
 	RD_IDLE;
 
 	RS_CLEAR;
-	SysTick_Wait1ms(2);
+	Delay1ms(2);
 	RS_SET;
 
 	// Data transfer sync
@@ -183,13 +114,13 @@ void writeRegister32(uint8_t r, uint32_t d) {
 	write8(r);
 
 	CD_DATA;
-	SysTick_Wait1us(10);
+	Delay1us(10);
 	write8(d >> 24);
-	SysTick_Wait1us(10);
+	Delay1us(10);
 	write8(d >> 16);
-	SysTick_Wait1us(10);
+	Delay1us(10);
 	write8(d >> 8);
-	SysTick_Wait1us(10);
+	Delay1us(10);
 	write8(d);
 	CS_IDLE;
 }
@@ -380,48 +311,48 @@ void pushColors(const uint16_t *data, uint32_t len, bool first) {
   CS_IDLE;
 }
 
-void setRotation(uint8_t x) {
-	uint16_t t;
-
-	rotation = (x & 3);
-	switch (rotation) {
-	case 0:
-	case 2:
-		_width = TFTWIDTH;
-		_height = TFTHEIGHT;
-		break;
-	case 1:
-	case 3:
-		_width = TFTHEIGHT;
-		_height = TFTWIDTH;
-		break;
-	}
-	// Then perform hardware-specific rotation operations...
-
-	CS_ACTIVE;
-
-	// MEME, HX8357D uses same registers as 9341 but different values
-
-	switch (rotation) {
-	case 2:
-		t = ILI9341_MADCTL_MX | ILI9341_MADCTL_BGR;
-		break;
-	case 3:
-		t = ILI9341_MADCTL_MV | ILI9341_MADCTL_BGR;
-		break;
-	case 0:
-		t = ILI9341_MADCTL_MY | ILI9341_MADCTL_BGR;
-		break;
-	case 1:
-		t = ILI9341_MADCTL_MX | ILI9341_MADCTL_MY | ILI9341_MADCTL_MV
-				| ILI9341_MADCTL_BGR;
-		break;
-	}
-	writeRegister8(ILI9341_MADCTL, t )
-	; // MADCTL
-	// For 9341, init default full-screen address window:
-	setAddrWindow(0, 0, _width - 1, _height - 1); // CS_IDLE happens here
-}
+//void setRotation(uint8_t x) {
+//	uint16_t t;
+//
+//	rotation = (x & 3);
+//	switch (rotation) {
+//	case 0:
+//	case 2:
+//		_width = TFTWIDTH;
+//		_height = TFTHEIGHT;
+//		break;
+//	case 1:
+//	case 3:
+//		_width = TFTHEIGHT;
+//		_height = TFTWIDTH;
+//		break;
+//	}
+//	// Then perform hardware-specific rotation operations...
+//
+//	CS_ACTIVE;
+//
+//	// MEME, HX8357D uses same registers as 9341 but different values
+//
+//	switch (rotation) {
+//	case 2:
+//		t = ILI9341_MADCTL_MX | ILI9341_MADCTL_BGR;
+//		break;
+//	case 3:
+//		t = ILI9341_MADCTL_MV | ILI9341_MADCTL_BGR;
+//		break;
+//	case 0:
+//		t = ILI9341_MADCTL_MY | ILI9341_MADCTL_BGR;
+//		break;
+//	case 1:
+//		t = ILI9341_MADCTL_MX | ILI9341_MADCTL_MY | ILI9341_MADCTL_MV
+//				| ILI9341_MADCTL_BGR;
+//		break;
+//	}
+//	writeRegister8(ILI9341_MADCTL, t )
+//	; // MADCTL
+//	// For 9341, init default full-screen address window:
+//	setAddrWindow(0, 0, _width - 1, _height - 1); // CS_IDLE happens here
+//}
 
 void fillRect(int16_t x1, int16_t y1, int16_t w, int16_t h,
   uint16_t fillcolor) {

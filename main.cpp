@@ -21,9 +21,17 @@ uint32_t ui32Value[2];
 
 int main(void){
 	System_Init();
-//	ADC_Init();
-
+	LCD_Reset();
+	LCD_Begin();
+	setRotation(0);
+	setAddrWindow(0, 0, 239, 319);
+	flood(BLACK, 240*320);
+	ADC_Init();
+	Thuy.Draw();
 	while(1) {
-
+		Delay1ms(30);
+		ADCProcessorTrigger(ADC0_BASE, 2);
+		Thuy.Draw();
+		Thuy.Move(joystick_dir, 2);
 	}
 }

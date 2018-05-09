@@ -24,9 +24,9 @@ extern "C"
 #define ADC_BASE 		ADC0_BASE
 #define ADC_SEQUENCE 	2
 #define ADC_INT_SS		ADC_INT_SS2
-#define CH_X 			ADC_CTL_CH5
+#define CH_X 			ADC_CTL_CH4
 #define CH_X_STEP 		0
-#define CH_Y 			ADC_CTL_CH4
+#define CH_Y 			ADC_CTL_CH5
 #define CH_Y_STEP 		1
 
 #if CH_Y_STEP

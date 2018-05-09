@@ -9,6 +9,19 @@ unsigned long TimerCount;
 unsigned long Semaphore;
 unsigned long FrameCount=0;
 
+void Delay1ms(uint32_t t){
+	while(t--){
+		uint16_t x = ONE_MSEC;
+		while(x--);
+	}
+}
+
+void Delay1us(uint32_t t){
+	while(t--){
+		uint16_t x = ONE_USEC;
+		while(x--);
+	}
+}
 Entity Thuy((point_t) {120-12, 160-16}, 1, img_thuy);
 dir_t joystick_dir = STAY;
 

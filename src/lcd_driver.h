@@ -146,15 +146,10 @@ extern int16_t _width, _height;
 /// PROTOTYPE
 ///
 ///****************************************************************************
-void SysTick_Init(void);
-void SysTick_Wait(unsigned long);
-void SysTick_Wait1ms(unsigned long delay);
-void GPIO_Init(void);
 
+void LCD_Begin(void);
+void LCD_Reset(void);
 void setAddrWindow(int x1, int y1, int x2, int y2);
-void LCD_init(void);
-void LCD_begin(void);
-void LCD_reset(void);
 void writeRegister32(uint8_t, uint32_t);
 void drawPixel(int16_t x, int16_t y, uint16_t color);
 void drawFastHLine(int16_t x0, int16_t y0, int16_t w, uint16_t color);

@@ -26,30 +26,30 @@
 ///****************************************************************************
 
 
-//void static inline GPIO_Init(void)
-//{
-//	/* Active PortE clock and wait for it is ready */
-//	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOE);
-//	while (!SysCtlPeripheralReady(SYSCTL_PERIPH_GPIOE));
-//
-//	/* Config output with 2mA drive and standard pin type */
-//	GPIOPadConfigSet(GPIO_PORTE_BASE,
-//					 PORTE_PIN_USE,
-//					 GPIO_STRENGTH_2MA,
-//					 GPIO_PIN_TYPE_STD);
-//	GPIOPinTypeGPIOOutput(GPIO_PORTE_BASE, PORTE_PIN_USE);
-//
-//	/* Active PortB clock and wait for it is ready */
-//	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOB);
-//	while (!SysCtlPeripheralReady(SYSCTL_PERIPH_GPIOB));
-//
-//	/* Config output with 2mA drive and standard pin type */
-//	GPIOPadConfigSet(GPIO_PORTB_BASE,
-//					 PORTB_PIN_USE,
-//					 GPIO_STRENGTH_2MA,
-//					 GPIO_PIN_TYPE_STD);
-//	GPIOPinTypeGPIOOutput(GPIO_PORTB_BASE, PORTB_PIN_USE);
-//}
+void static inline GPIO_Init(void)
+{
+	/* Active PortE clock and wait for it is ready */
+	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOE);
+	while (!SysCtlPeripheralReady(SYSCTL_PERIPH_GPIOE));
+
+	/* Config output with 2mA drive and standard pin type */
+	GPIOPadConfigSet(GPIO_PORTE_BASE,
+					 PORTE_PIN_USE,
+					 GPIO_STRENGTH_2MA,
+					 GPIO_PIN_TYPE_STD);
+	GPIOPinTypeGPIOOutput(GPIO_PORTE_BASE, PORTE_PIN_USE);
+
+	/* Active PortB clock and wait for it is ready */
+	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOB);
+	while (!SysCtlPeripheralReady(SYSCTL_PERIPH_GPIOB));
+
+	/* Config output with 2mA drive and standard pin type */
+	GPIOPadConfigSet(GPIO_PORTB_BASE,
+					 PORTB_PIN_USE,
+					 GPIO_STRENGTH_2MA,
+					 GPIO_PIN_TYPE_STD);
+	GPIOPinTypeGPIOOutput(GPIO_PORTB_BASE, PORTB_PIN_USE);
+}
 
 
 
@@ -70,8 +70,8 @@ void System_Init(void)
 	///
 	/* Set 0.1 second period interrupt */
 	SysTickPeriodSet(8E6-1);
-	SysTickIntRegister(SysTick_Handler);
-	SysTickIntEnable();
+//	SysTickIntRegister(SysTick_Handler);
+//	SysTickIntEnable();
 	SysTickEnable();
 
 	///
@@ -124,6 +124,7 @@ void System_Init(void)
 						 UART_CONFIG_STOP_ONE |
 						 UART_CONFIG_PAR_NONE ));
 
+	GPIO_Init();
 }
 
 void SysTick_Handler(void)
@@ -132,7 +133,7 @@ void SysTick_Handler(void)
 }
 
 uint8_t led = 0;
-extern int8_t bounce;
+
 void Switch_Handler(void)
 {
 	led ^= 0x02;
