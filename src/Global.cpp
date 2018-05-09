@@ -22,6 +22,8 @@ void Delay1us(uint32_t t){
 		while(x--);
 	}
 }
+
 Entity Thuy((point_t) {120-12, 160-16}, 1, img_thuy);
+Terrain WoodBox(1, img_wood_box, 5);
 dir_t joystick_dir = STAY;
 

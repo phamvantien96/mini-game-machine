@@ -64,7 +64,7 @@ void LCD_Begin(void) {
 
 	CS_ACTIVE;
 	writeRegister8(ILI9341_MADCTL, ILI9341_MADCTL_MY | ILI9341_MADCTL_BGR);
-	setAddrWindow(0, 0, _width - 1, _height - 1);
+	setAddrWindow(0, 0, TFTWIDTH - 1, TFTHEIGHT - 1);
 
 	return;
 }
@@ -128,11 +128,11 @@ void writeRegister32(uint8_t r, uint32_t d) {
 void drawPixel(int16_t x, int16_t y, uint16_t color) {
 
 	// Clip
-	if ((x < 0) || (y < 0) || (x >= _width) || (y >= _height))
+	if ((x < 0) || (y < 0) || (x >= TFTWIDTH) || (y >= TFTHEIGHT))
 		return;
 
 	CS_ACTIVE;
-	setAddrWindow(x, y, _width - 1, _height - 1);
+	setAddrWindow(x, y, TFTWIDTH - 1, TFTHEIGHT - 1);
 	CS_ACTIVE;
 	CD_COMMAND;
 	write8(0x2C)
@@ -149,7 +149,7 @@ void drawFastHLine(int16_t x, int16_t y, int16_t length, uint16_t color) {
 	int16_t x2;
 
 	// Initial off-screen clipping
-	if ((length <= 0) || (y < 0) || (y >= _height) || (x >= _width)
+	if ((length <= 0) || (y < 0) || (y >= TFTHEIGHT) || (x >= TFTWIDTH)
 			|| ((x2 = (x + length - 1)) < 0))
 		return;
 
@@ -157,8 +157,8 @@ void drawFastHLine(int16_t x, int16_t y, int16_t length, uint16_t color) {
 		length += x;
 		x = 0;
 	}
-	if (x2 >= _width) { // Clip right
-		x2 = _width - 1;
+	if (x2 >= TFTWIDTH) { // Clip right
+		x2 = TFTWIDTH - 1;
 		length = x2 - x + 1;
 	}
 
@@ -171,15 +171,15 @@ void drawFastVLine(int16_t x, int16_t y, int16_t length, uint16_t color) {
 	int16_t y2;
 
 	// Initial off-screen clipping
-	if ((length <= 0) || (x < 0) || (x >= _width) || (y >= _height)
+	if ((length <= 0) || (x < 0) || (x >= TFTWIDTH) || (y >= TFTHEIGHT)
 			|| ((y2 = (y + length - 1)) < 0))
 		return;
 	if (y < 0) {         // Clip top
 		length += y;
 		y = 0;
 	}
-	if (y2 >= _height) { // Clip bottom
-		y2 = _height - 1;
+	if (y2 >= TFTHEIGHT) { // Clip bottom
+		y2 = TFTHEIGHT - 1;
 		length = y2 - y + 1;
 	}
 
@@ -211,10 +211,8 @@ void drawRGBBitmap(int16_t x, int16_t y, const uint16_t bitmap[], int16_t w, int
 
 void setLR(void) {
 	CS_ACTIVE;
-	writeRegisterPair(HX8347G_COLADDREND_HI, HX8347G_COLADDREND_LO, _width - 1)
-	;
-	writeRegisterPair(HX8347G_ROWADDREND_HI, HX8347G_ROWADDREND_LO, _height - 1)
-	;
+	writeRegisterPair(HX8347G_COLADDREND_HI, HX8347G_COLADDREND_LO, TFTWIDTH - 1);
+	writeRegisterPair(HX8347G_ROWADDREND_HI, HX8347G_ROWADDREND_LO, TFTHEIGHT - 1);
 	CS_IDLE;
 }
 
@@ -318,13 +316,13 @@ void pushColors(const uint16_t *data, uint32_t len, bool first) {
 //	switch (rotation) {
 //	case 0:
 //	case 2:
-//		_width = TFTWIDTH;
-//		_height = TFTHEIGHT;
+//		TFTWIDTH = TFTWIDTH;
+//		TFTHEIGHT = TFTHEIGHT;
 //		break;
 //	case 1:
 //	case 3:
-//		_width = TFTHEIGHT;
-//		_height = TFTWIDTH;
+//		TFTWIDTH = TFTHEIGHT;
+//		TFTHEIGHT = TFTWIDTH;
 //		break;
 //	}
 //	// Then perform hardware-specific rotation operations...
@@ -351,7 +349,7 @@ void pushColors(const uint16_t *data, uint32_t len, bool first) {
 //	writeRegister8(ILI9341_MADCTL, t )
 //	; // MADCTL
 //	// For 9341, init default full-screen address window:
-//	setAddrWindow(0, 0, _width - 1, _height - 1); // CS_IDLE happens here
+//	setAddrWindow(0, 0, TFTWIDTH - 1, TFTHEIGHT - 1); // CS_IDLE happens here
 //}
 
 void fillRect(int16_t x1, int16_t y1, int16_t w, int16_t h,
@@ -360,7 +358,7 @@ void fillRect(int16_t x1, int16_t y1, int16_t w, int16_t h,
 
   // Initial off-screen clipping
   if( (w            <= 0     ) ||  (h             <= 0      ) ||
-      (x1           >= _width) ||  (y1            >= _height) ||
+      (x1           >= TFTWIDTH) ||  (y1            >= TFTHEIGHT) ||
      ((x2 = x1+w-1) <  0     ) || ((y2  = y1+h-1) <  0      )) return;
   if(x1 < 0) { // Clip left
     w += x1;
@@ -370,12 +368,12 @@ void fillRect(int16_t x1, int16_t y1, int16_t w, int16_t h,
     h += y1;
     y1 = 0;
   }
-  if(x2 >= _width) { // Clip right
-    x2 = _width - 1;
+  if(x2 >= TFTWIDTH) { // Clip right
+    x2 = TFTWIDTH - 1;
     w  = x2 - x1 + 1;
   }
-  if(y2 >= _height) { // Clip bottom
-    y2 = _height - 1;
+  if(y2 >= TFTHEIGHT) { // Clip bottom
+    y2 = TFTHEIGHT - 1;
     h  = y2 - y1 + 1;
   }
 
@@ -385,6 +383,6 @@ void fillRect(int16_t x1, int16_t y1, int16_t w, int16_t h,
 }
 
 void fillScreen(uint16_t color) {
-  setAddrWindow(0, 0, _width - 1, _height - 1);
+  setAddrWindow(0, 0, TFTWIDTH - 1, TFTHEIGHT - 1);
   flood(color, (long)TFTWIDTH * (long)TFTHEIGHT);
 }

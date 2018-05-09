@@ -18,11 +18,14 @@ Entity::Entity(point_t _point, life_t _life, image_t _image)
 void Entity::Move(dir_t _dir, distance_t distance)
 {
 	point_t endPixel = {point.x + image.numCols - 1, point.y + image.numRows - 1};
+	uint32_t mapBoundary;
 
     switch(_dir)
     {
         case LEFT:
-        	if(point.x < distance)	distance = point.x;
+        	mapBoundary = GetClosestTerrain(point.x % SQUARE_SIZE_PIXEL, _dir);
+
+        	if(point.x - distance < mapBoundary)	distance = point.x - mapBoundary;
 
         	/* If distance = 0 we no change anything*/
 			if(0 != distance)
@@ -33,7 +36,10 @@ void Entity::Move(dir_t _dir, distance_t distance)
 			}
             break;
         case RIGHT:
-        	if(endPixel.x + distance >= _width)	 distance = _width - endPixel.x - 1;
+        	mapBoundary = GetClosestTerrain(endPixel.x % SQUARE_SIZE_PIXEL, _dir);
+
+        	if(endPixel.x + distance >= mapBoundary)
+        		distance = mapBoundary - endPixel.x - 1;
 
         	/* If distance = 0 we no change anything*/
         	if(0 != distance)
@@ -44,7 +50,9 @@ void Entity::Move(dir_t _dir, distance_t distance)
         	}
             break;
         case UP:
-        	if(point.y < distance)	distance = point.y;
+        	mapBoundary = GetClosestTerrain(point.y / SQUARE_SIZE_PIXEL, _dir);
+
+        	if(point.y - distance < mapBoundary)	distance = point.y - mapBoundary;
         	/* If distance = 0 we no change anything*/
 			if(0 != distance)
 			{
@@ -54,7 +62,9 @@ void Entity::Move(dir_t _dir, distance_t distance)
 			}
             break;
         case DOWN:
-        	if(endPixel.y + distance >= _height)	distance = _height - endPixel.y - 1;
+        	mapBoundary = GetClosestTerrain(endPixel.y / SQUARE_SIZE_PIXEL, _dir);
+
+        	if(endPixel.y + distance >= mapBoundary)	distance = mapBoundary - endPixel.y - 1;
 
         	/* If distance = 0 we no change anything*/
 			if(0 != distance)
@@ -93,3 +103,4 @@ void Entity::Destroy()
 {
 	Clear();
 }
+

@@ -11,5 +11,7 @@ typedef struct {
 
 extern const image_t img_woof;
 extern const image_t img_thuy;
+extern const image_t img_character;
+extern const image_t img_wood_box;
 
 #endif /* image.h */

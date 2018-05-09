@@ -122,7 +122,7 @@ extern "C"
  *
  */
 #define writeRegisterPair(aH, aL, d) { \
-  uint8_t hi = (d) >> 8, lo = (d); \
+  uint8_t hi = (uint8_t) (d >> 8), lo = (uint8_t) (d); \
   CD_COMMAND; write8(aH); CD_DATA; write8(hi); \
   CD_COMMAND; write8(aL); CD_DATA; write8(lo); }
 
@@ -138,8 +138,6 @@ extern "C"
 #ifndef pgm_read_dword
  #define pgm_read_dword(addr) (*(const unsigned long *)(addr))
 #endif
-
-extern int16_t _width, _height;
 
 ///****************************************************************************
 ///

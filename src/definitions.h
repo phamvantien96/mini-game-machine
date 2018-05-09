@@ -22,14 +22,25 @@ extern "C"
 
 #define ONE_MSEC 13333
 #define ONE_USEC 14
+
+/*
+ * Define for map
+ */
+#define SQUARE_SIZE_PIXEL 			24
+#define MAP_WIDTH					10
+#define MAP_LENGTH					10
+#define MAX_IDX						(MAP_WIDTH * MAP_LENGTH)
+#define Y_MAP_OFFSET				48
+#define X_MAP_OFFSET				0
+
 ///****************************************************************************
 ///
 /// TYPEDEF
 ///
 ///****************************************************************************
-/**
- *  Use for Entity class
- */
+///
+/// Use for Entity class
+///
 typedef struct {
     uint32_t x;
     uint32_t y;
@@ -46,7 +57,11 @@ typedef enum {
 typedef uint32_t life_t;
 typedef uint32_t distance_t;
 
-
+///
+/// Use for Terrain class
+///
+/* Terrain index read from left to right, up to down */
+typedef uint8_t terr_idx_t;
 
 #ifdef __cplusplus
 }

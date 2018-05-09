@@ -13,7 +13,6 @@
 #include <inc/tm4c123gh6pm.h>
 #include "config.h"
 #include "image.h"
-#include "Entity.h"
 #include "Global.h"
 #include "joystick.h"
 
@@ -23,7 +22,6 @@ int main(void){
 	System_Init();
 	LCD_Reset();
 	LCD_Begin();
-	setRotation(0);
 	setAddrWindow(0, 0, 239, 319);
 	flood(BLACK, 240*320);
 	ADC_Init();

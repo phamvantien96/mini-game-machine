@@ -11,6 +11,7 @@
 #include "inc/tm4c123gh6pm.h"
 #include "Entity.h"
 #include "image.h"
+#include "Terrain.h"
 
 #ifdef __cplusplus
 extern "C" 
@@ -22,11 +23,7 @@ extern "C"
 /// EXTERNAL VARIABLE
 ///
 ///****************************************************************************
-
-extern unsigned long TimerCount;
-extern unsigned long Semaphore;
-extern unsigned long FrameCount;
-
+extern Terrain WoodBox;
 extern Entity Thuy;
 extern dir_t joystick_dir;
 
