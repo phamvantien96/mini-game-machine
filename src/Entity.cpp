@@ -25,7 +25,7 @@ void Entity::Move(dir_t _dir, distance_t distance)
         case LEFT:
         	mapBoundary = GetClosestTerrain(point.x % SQUARE_SIZE_PIXEL, _dir);
 
-        	if(point.x - distance < mapBoundary)	distance = point.x - mapBoundary;
+        	if(point.x - distance <= mapBoundary)	distance = point.x - mapBoundary;
 
         	/* If distance = 0 we no change anything*/
 			if(0 != distance)
@@ -38,8 +38,7 @@ void Entity::Move(dir_t _dir, distance_t distance)
         case RIGHT:
         	mapBoundary = GetClosestTerrain(endPixel.x % SQUARE_SIZE_PIXEL, _dir);
 
-        	if(endPixel.x + distance >= mapBoundary)
-        		distance = mapBoundary - endPixel.x - 1;
+        	if(endPixel.x + distance >= mapBoundary)	distance = mapBoundary - endPixel.x;
 
         	/* If distance = 0 we no change anything*/
         	if(0 != distance)

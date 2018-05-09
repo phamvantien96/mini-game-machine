@@ -16,6 +16,17 @@
 extern "C" 
 {
 #endif  /* __cplusplus */
+
+///****************************************************************************
+///
+/// EXTERNAL VARIABLE AND FUNCTION
+///
+///****************************************************************************
+extern "C++" uint32_t GetClosestTerrain(terr_idx_t _idx, dir_t _dir);
+extern "C++" uint32_t GetClosestTerrain(terr_idx_t _idx_st,
+										terr_idx_t _idx_nd,
+										dir_t 	   _dir   );
+
 ///****************************************************************************
 ///
 /// CLASS PROTOTYPE
@@ -36,8 +47,6 @@ public:
 	void Clear();
 	void Destroy();
 };
-
-extern uint32_t GetClosestTerrain(terr_idx_t _idx, dir_t _dir);
 
 #ifdef __cplusplus
 }

@@ -23,7 +23,7 @@ void Delay1us(uint32_t t){
 	}
 }
 
-Entity Thuy((point_t) {120-12, 160-16}, 1, img_thuy);
-Terrain WoodBox(1, img_wood_box, 5);
+Terrain WoodBox(1, img_wood_box, 45);
+Entity Character((point_t) {0, 0}, 1, img_character);
 dir_t joystick_dir = STAY;
 
