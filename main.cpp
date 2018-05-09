@@ -26,18 +26,9 @@ int main(void){
 	setRotation(0);
 	int i;
 
-	while(1) {
-		for(i = 0; i < 100; i++)
-		{
-			WoodBox.ChangeTerrainIdx(rand() % 100);
-			WoodBox.Draw();
-			SysTick_Wait1ms(100);
-		}
-		while(1)
-		{
-			WoodBox.ChangeTerrainIdx(rand() % 100);
-			WoodBox.Clear();
-			SysTick_Wait1ms(100);
-		}
+	while (1) {
+		Thuy.Draw();
+		SysTick_Wait1ms(100);
+		Thuy.Move(RIGHT, 1);
 	}
 }

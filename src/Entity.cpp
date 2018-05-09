@@ -18,10 +18,13 @@ Entity::Entity(point_t _point, life_t _life, image_t _image)
 void Entity::Move(dir_t _dir, distance_t distance)
 {
 	point_t endPixel = {point.x + image.numCols - 1, point.y + image.numRows - 1};
+	uint32_t mapBoundary;
 
     switch(_dir)
     {
         case LEFT:
+        	mapBoundary = GetClosestTerrain(point.x % SQUARE_SIZE_PIXEL, _dir);
+
         	if(point.x < distance)	distance = point.x;
 
         	/* If distance = 0 we no change anything*/
@@ -33,7 +36,10 @@ void Entity::Move(dir_t _dir, distance_t distance)
 			}
             break;
         case RIGHT:
-        	if(endPixel.x + distance >= _width)	 distance = _width - endPixel.x - 1;
+        	mapBoundary = GetClosestTerrain(endPixel.x % SQUARE_SIZE_PIXEL, _dir);
+
+        	if(endPixel.x + distance >= mapBoundary)
+        		distance = mapBoundary - endPixel.x - 1;
 
         	/* If distance = 0 we no change anything*/
         	if(0 != distance)

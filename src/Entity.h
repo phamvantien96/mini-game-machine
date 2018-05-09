@@ -37,6 +37,8 @@ public:
 	void Destroy();
 };
 
+extern uint32_t GetClosestTerrain(terr_idx_t _idx, dir_t _dir);
+
 #ifdef __cplusplus
 }
 #endif
