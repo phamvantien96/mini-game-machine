@@ -29,6 +29,12 @@ extern "C"
 ///
 ///****************************************************************************
 
+///****************************************************************************
+///
+/// EXTERNAL VARIABLE AND FUNCTION
+///
+///****************************************************************************
+coordinates_t GetClosestTerrain(terr_idx_t _idx_st, terr_idx_t _idx_nd, dir_t _dir);
 
 ///****************************************************************************
 ///
@@ -42,8 +48,6 @@ public:
 	Terrain(life_t _life, image_t _image, terr_idx_t _terrainIdx);
 	void ChangeTerrainIdx(terr_idx_t _idx);
 };
-
-uint32_t GetClosestTerrain(terr_idx_t _idx, dir_t _dir);
 
 #ifdef __cplusplus
 }

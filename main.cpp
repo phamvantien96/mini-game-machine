@@ -25,11 +25,17 @@ int main(void){
 	setAddrWindow(0, 0, 239, 319);
 	flood(BLACK, 240*320);
 	ADC_Init();
-	Thuy.Draw();
+
+	WoodBox[0].Draw();
+	WoodBox[1].Draw();
+	WoodBox[2].Draw();
+	WoodBox[3].Draw();
+
+
 	while(1) {
+		ADCProcessorTrigger(ADC0_BASE, 2);
 		Delay1ms(30);
-//		ADCProcessorTrigger(ADC0_BASE, 2);
-		Thuy.Draw();
-		Thuy.Move(joystick_dir, 2);
+		Character.Draw();
+		Character.Move(joystick_dir, 2);
 	}
 }

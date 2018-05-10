@@ -23,8 +23,8 @@ extern "C"
 /// EXTERNAL VARIABLE
 ///
 ///****************************************************************************
-extern Terrain WoodBox;
-extern Entity Thuy;
+extern Terrain WoodBox[4];
+extern Entity Character;
 extern dir_t joystick_dir;
 
 ///****************************************************************************

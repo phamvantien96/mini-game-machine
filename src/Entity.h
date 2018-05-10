@@ -18,6 +18,26 @@ extern "C"
 #endif  /* __cplusplus */
 ///****************************************************************************
 ///
+/// DEFINE AND MARCO
+///
+///****************************************************************************
+/*
+ * This two marco use for calculate column and row index on map
+ */
+#define COL_IDX(x)				((x - X_MAP_OFFSET) / SQUARE_SIZE_PIXEL)
+#define ROW_IDX(y)				((y - Y_MAP_OFFSET) / SQUARE_SIZE_PIXEL)
+
+#define PIXEL_IDX_CALC(x, y)	(COL_IDX(x) + MAP_LENGTH * ROW_IDX(y))
+
+///****************************************************************************
+///
+/// EXTERNAL VARIABLE AND FUNCTION
+///
+///****************************************************************************
+coordinates_t GetClosestTerrain(terr_idx_t _idx_st, terr_idx_t _idx_nd, dir_t _dir);
+
+///****************************************************************************
+///
 /// CLASS PROTOTYPE
 ///
 ///****************************************************************************
@@ -36,8 +56,6 @@ public:
 	void Clear();
 	void Destroy();
 };
-
-extern uint32_t GetClosestTerrain(terr_idx_t _idx, dir_t _dir);
 
 #ifdef __cplusplus
 }
