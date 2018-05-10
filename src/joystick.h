@@ -43,7 +43,7 @@ extern "C"
 #endif
 
 
-void ADC_Init(void);
+void Joystick_Init(void);
 void Joystick_Handler(void);
 void Timer0A_Handler(void);
 void Timer0B_Handler(void);

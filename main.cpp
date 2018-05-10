@@ -16,24 +16,20 @@
 #include "Global.h"
 #include "joystick.h"
 
-uint32_t ui32Value[2];
-
 int main(void){
 	System_Init();
 	LCD_Reset();
 	LCD_Begin();
+	Joystick_Init();
 	setAddrWindow(0, 0, 239, 319);
 	flood(BLACK, 240*320);
-	ADC_Init();
 
 	WoodBox[0].Draw();
 	WoodBox[1].Draw();
 	WoodBox[2].Draw();
 	WoodBox[3].Draw();
 
-
 	while(1) {
-		ADCProcessorTrigger(ADC0_BASE, 2);
 		Delay1ms(30);
 		Character.Draw();
 		Character.Move(joystick_dir, 2);

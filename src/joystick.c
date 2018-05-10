@@ -6,10 +6,9 @@
  */
 #include "joystick.h"
 
-extern uint32_t ui32Value[2];
 extern dir_t joystick_dir;
 
-void ADC_Init(void)
+void Joystick_Init(void)
 {
 	//
 	// Enable the ADC0 module.
@@ -32,8 +31,8 @@ void ADC_Init(void)
 	while(!SysCtlPeripheralReady(SYSCTL_PERIPH_TIMER0))
 	{ }
 	TimerConfigure(TIMER0_BASE, (TIMER_CFG_SPLIT_PAIR | TIMER_CFG_A_PERIODIC | TIMER_CFG_B_PERIODIC));
-	TimerLoadSet(TIMER0_BASE, TIMER_A, 3000);
-	TimerLoadSet(TIMER0_BASE, TIMER_B, 4000);
+	TimerLoadSet(TIMER0_BASE, TIMER_A, 65500);
+	TimerLoadSet(TIMER0_BASE, TIMER_B, 65500);
 	TimerEnable(TIMER0_BASE, TIMER_BOTH);
 	TimerIntRegister(TIMER0_BASE, TIMER_A, Timer0A_Handler);
 	TimerIntEnable(TIMER0_BASE, TIMER_TIMA_TIMEOUT);
@@ -42,22 +41,27 @@ void ADC_Init(void)
 
 }
 
+uint32_t ui32Value[2];
 void Joystick_Handler(void)
-{	uint32_t x, y;
+{
 	ADCIntClear(ADC_BASE, ADC_SEQUENCE);
 	ADCSequenceDataGet(ADC_BASE, ADC_SEQUENCE, ui32Value);
-	x = ui32Value[1];
-	y = ui32Value[0];
-	if (x>y) {
-		if		((x+y)<4096 && y<1024)  joystick_dir = UP;
-		else if ((x+y)>=4096 && x>3072) joystick_dir = RIGHT;
-		else 							joystick_dir = STAY;
-	} else {
-		if		((x+y)<4096 && x<1024)  joystick_dir = LEFT;
-		else if ((x+y)>=4096 && y>3072) joystick_dir = DOWN;
-		else 							joystick_dir = STAY;
-	}
 
+	if (ui32Value[1]>ui32Value[0]) {
+		if		((ui32Value[1]+ui32Value[0])<4096 && ui32Value[0]<1024)
+			joystick_dir = UP;
+		else if ((ui32Value[1]+ui32Value[0])>=4096 && ui32Value[1]>3072)
+			joystick_dir = RIGHT;
+		else
+			joystick_dir = STAY;
+	} else {
+		if		((ui32Value[1]+ui32Value[0])<4096 && ui32Value[1]<1024)
+			joystick_dir = LEFT;
+		else if ((ui32Value[1]+ui32Value[0])>=4096 && ui32Value[0]>3072)
+			joystick_dir = DOWN;
+		else
+			joystick_dir = STAY;
+	}
 }
 
 void Timer0A_Handler(void)
