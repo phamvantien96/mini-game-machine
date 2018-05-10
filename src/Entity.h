@@ -54,7 +54,7 @@ public:
 	void Move(dir_t _dir, distance_t distance);
 	void Draw();
 	void Clear();
-	void Destroy();
+	virtual void Destroy();
 };
 
 #ifdef __cplusplus

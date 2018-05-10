@@ -22,11 +22,21 @@ terrainIdx(_terrainIdx)
 
 void Terrain::ChangeTerrainIdx(terr_idx_t _idx)
 {
+	/* Clear and update map terrain */
+	map_terrain[terrainIdx] = 0;
 	terrainIdx = _idx;
+	map_terrain[terrainIdx] = 1;
 
 	/* Update x, y follow index */
 	point.x = X_CALC(terrainIdx);
 	point.y = Y_CALC(terrainIdx);
+}
+
+void Terrain::Destroy()
+{
+	map_terrain[terrainIdx] = 0;
+
+	Clear();
 }
 
 ///****************************************************************************
@@ -152,5 +162,4 @@ coordinates_t GetClosestTerrain(terr_idx_t _idx_st, terr_idx_t _idx_nd, dir_t _d
 	}
 
 	return closestCoordinate;
-
 }

@@ -6,6 +6,7 @@
 #ifndef _GLOBAL_H_
 #define _GLOBAL_H_
 
+#include <stdlib.h>
 #include <stdint.h>
 #include <stdbool.h>
 #include "inc/tm4c123gh6pm.h"
@@ -23,7 +24,7 @@ extern "C"
 /// EXTERNAL VARIABLE
 ///
 ///****************************************************************************
-extern Terrain WoodBox[4];
+extern Terrain WoodBox[16];
 extern Entity Character;
 extern dir_t joystick_dir;
 

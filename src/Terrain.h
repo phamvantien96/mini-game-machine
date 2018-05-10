@@ -47,6 +47,7 @@ private:
 public:
 	Terrain(life_t _life, image_t _image, terr_idx_t _terrainIdx);
 	void ChangeTerrainIdx(terr_idx_t _idx);
+	void Destroy();
 };
 
 #ifdef __cplusplus

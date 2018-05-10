@@ -114,4 +114,3 @@ void Entity::Destroy()
 {
 	Clear();
 }
-
