@@ -33,31 +33,9 @@ int main(void){
 
 
 	while(1) {
-		int i;
-
-		for(i = 0; i < 100; i++)
-		{
-			Delay1ms(30);
-			Character.Draw();
-			Character.Move(RIGHT, 1);
-		}
-		for (i = 0; i < 100; i++) {
-			Delay1ms(30);
-			Character.Draw();
-			Character.Move(DOWN, 1);
-		}
-		for (i = 0; i < 100; i++) {
-			Delay1ms(30);
-			Character.Draw();
-			Character.Move(LEFT, 1);
-		}
-		for (i = 0; i < 100; i++) {
-			Delay1ms(30);
-			Character.Draw();
-			Character.Move(UP, 1);
-		}
-//		ADCProcessorTrigger(ADC0_BASE, 2);
-//		Character.Draw();
-//		Character.Move(joystick_dir, 2);
+		ADCProcessorTrigger(ADC0_BASE, 2);
+		Delay1ms(30);
+		Character.Draw();
+		Character.Move(joystick_dir, 2);
 	}
 }
