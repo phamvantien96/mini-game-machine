@@ -13,8 +13,8 @@
 #include <inc/tm4c123gh6pm.h>
 #include "config.h"
 #include "image.h"
-#include "Global.h"
 #include "joystick.h"
+#include "Global.h"
 
 uint32_t ui32Value[2];
 
@@ -30,7 +30,7 @@ int main(void){
 
 	for(i = 0; i < 16; i++)
 		WoodBox[i].Draw();
-	Character.Draw();
+	Superman.Draw();
 
 	i = 0;
 	j = 0;
@@ -38,8 +38,11 @@ int main(void){
 	while(1) {
 		ADCProcessorTrigger(ADC0_BASE, 2);
 		Delay1ms(30);
-		Character.Move(joystick_dir, 2);
+		Superman.Move(joystick_dir);
 		if(0 == i++ % 100)
+		{
+			Superman.IncreaseSpeed();
 			WoodBox[j++].Destroy();
+		}
 	}
 }

@@ -31,7 +31,7 @@ extern "C"
 
 ///****************************************************************************
 ///
-/// EXTERNAL VARIABLE AND FUNCTION
+/// FUNCTION PROTOTYPE
 ///
 ///****************************************************************************
 coordinates_t GetClosestTerrain(terr_idx_t _idx_st, terr_idx_t _idx_nd, dir_t _dir);

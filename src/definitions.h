@@ -58,6 +58,7 @@ typedef enum {
 
 typedef int16_t life_t;
 typedef int16_t distance_t;
+typedef int16_t speed_t;
 
 ///
 /// Use for Terrain class

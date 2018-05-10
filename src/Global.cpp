@@ -5,10 +5,6 @@
 
 #include "Global.h"
 
-unsigned long TimerCount;
-unsigned long Semaphore;
-unsigned long FrameCount=0;
-
 void Delay1ms(uint32_t t){
 	while(t--){
 		uint16_t x = ONE_MSEC;
@@ -40,6 +36,7 @@ Terrain WoodBox[16] = {Terrain(1, img_wood_box, rand() % 100),
 	Terrain(1, img_wood_box, rand() % 100),
 	Terrain(1, img_wood_box, rand() % 100)};
 
-Entity Character((point_t) {0, 48}, 1, img_character);
+Character Superman((point_t) {0, 48}, 1, img_superman, 1, 1, 1);
+
 dir_t joystick_dir = STAY;
 

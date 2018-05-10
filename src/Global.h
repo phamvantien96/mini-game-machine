@@ -10,9 +10,10 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "inc/tm4c123gh6pm.h"
-#include "Entity.h"
 #include "image.h"
+#include "Entity.h"
 #include "Terrain.h"
+#include "Character.h"
 
 #ifdef __cplusplus
 extern "C" 
@@ -25,7 +26,7 @@ extern "C"
 ///
 ///****************************************************************************
 extern Terrain WoodBox[16];
-extern Entity Character;
+extern Character Superman;
 extern dir_t joystick_dir;
 
 ///****************************************************************************
