@@ -18,6 +18,7 @@ extern "C"
 #include <stdint.h>
 #include <driverlib/sysctl.h>
 #include <driverlib/adc.h>
+#include <driverlib/timer.h>
 #include <inc/hw_memmap.h>
 #include "definitions.h"
 
@@ -44,6 +45,8 @@ extern "C"
 
 void ADC_Init(void);
 void Joystick_Handler(void);
+void Timer0A_Handler(void);
+void Timer0B_Handler(void);
 
 #ifdef __cplusplus
 }

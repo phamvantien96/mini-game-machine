@@ -28,7 +28,7 @@ int main(void){
 	Thuy.Draw();
 	while(1) {
 		Delay1ms(30);
-		ADCProcessorTrigger(ADC0_BASE, 2);
+//		ADCProcessorTrigger(ADC0_BASE, 2);
 		Thuy.Draw();
 		Thuy.Move(joystick_dir, 2);
 	}

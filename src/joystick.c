@@ -15,15 +15,8 @@ void ADC_Init(void)
 	// Enable the ADC0 module.
 	//
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_ADC0);
-	//
-	// Wait for the ADC0 module to be ready.
-	//
 	while(!SysCtlPeripheralReady(SYSCTL_PERIPH_ADC0))
 	{ }
-	//
-	// Enable the first sample sequencer to capture the value of channel 0 when
-	// the processor trigger occurs.
-	//
 	ADCSequenceConfigure(ADC_BASE, ADC_SEQUENCE, ADC_TRIGGER_PROCESSOR, 0);
 	ADCSequenceStepConfigure(ADC_BASE, ADC_SEQUENCE, CH_0_STEP, CH_0);
 	ADCSequenceStepConfigure(ADC_BASE, ADC_SEQUENCE, CH_1_STEP, CH_1);
@@ -31,6 +24,22 @@ void ADC_Init(void)
 	ADCIntRegister(ADC_BASE, ADC_SEQUENCE, Joystick_Handler);
 	ADCIntEnableEx(ADC_BASE, ADC_INT_SS);
 	ADCIntEnable(ADC_BASE, ADC_SEQUENCE);
+
+	//
+	// Enable the Timer0 peripheral
+	//
+	SysCtlPeripheralEnable(SYSCTL_PERIPH_TIMER0);
+	while(!SysCtlPeripheralReady(SYSCTL_PERIPH_TIMER0))
+	{ }
+	TimerConfigure(TIMER0_BASE, (TIMER_CFG_SPLIT_PAIR | TIMER_CFG_A_PERIODIC | TIMER_CFG_B_PERIODIC));
+	TimerLoadSet(TIMER0_BASE, TIMER_A, 3000);
+	TimerLoadSet(TIMER0_BASE, TIMER_B, 4000);
+	TimerEnable(TIMER0_BASE, TIMER_BOTH);
+	TimerIntRegister(TIMER0_BASE, TIMER_A, Timer0A_Handler);
+	TimerIntEnable(TIMER0_BASE, TIMER_TIMA_TIMEOUT);
+	TimerIntRegister(TIMER0_BASE, TIMER_B, Timer0B_Handler);
+	TimerIntEnable(TIMER0_BASE, TIMER_TIMB_TIMEOUT);
+
 }
 
 void Joystick_Handler(void)
@@ -50,3 +59,16 @@ void Joystick_Handler(void)
 	}
 
 }
+
+void Timer0A_Handler(void)
+{
+	TimerIntClear(TIMER0_BASE, TIMER_TIMA_TIMEOUT);
+	ADCProcessorTrigger(ADC0_BASE, 2);
+}
+
+
+void Timer0B_Handler(void)
+{
+	TimerIntClear(TIMER0_BASE, TIMER_TIMB_TIMEOUT);
+}
+
