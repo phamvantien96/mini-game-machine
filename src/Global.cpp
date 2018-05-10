@@ -23,7 +23,10 @@ void Delay1us(uint32_t t){
 	}
 }
 
-Terrain WoodBox(1, img_wood_box, 45);
-Entity Character((point_t) {0, 0}, 1, img_character);
+Terrain WoodBox[4] = {Terrain(1, img_wood_box, 5),
+					Terrain(1, img_wood_box, 45),
+					Terrain(1, img_wood_box, 30),
+					Terrain(1, img_wood_box, 89)};
+Entity Character((point_t) {0, 48}, 1, img_character);
 dir_t joystick_dir = STAY;
 

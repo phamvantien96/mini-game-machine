@@ -16,8 +16,6 @@
 #include "Global.h"
 #include "joystick.h"
 
-extern uint32_t GetClosestTerrain(terr_idx_t _idx, dir_t _dir);
-
 uint32_t ui32Value[2];
 
 int main(void){
@@ -28,43 +26,38 @@ int main(void){
 	flood(BLACK, 240*320);
 	ADC_Init();
 
+	WoodBox[0].Draw();
+	WoodBox[1].Draw();
+	WoodBox[2].Draw();
+	WoodBox[3].Draw();
+
 
 	while(1) {
-		uint32_t tmp;
-		tmp = GetClosestTerrain(43 , RIGHT);
-		tmp = GetClosestTerrain(47 , RIGHT);
+		int i;
 
-		tmp = GetClosestTerrain(43, LEFT);
-		tmp = GetClosestTerrain(47, LEFT);
-
-		tmp = GetClosestTerrain(35, UP);
-		tmp = GetClosestTerrain(65, UP);
-
-		tmp = GetClosestTerrain(35, DOWN);
-		tmp = GetClosestTerrain(65, DOWN);
-
-		tmp = GetClosestTerrain(43, 53, RIGHT);
-		tmp = GetClosestTerrain(33, 43, RIGHT);
-		tmp = GetClosestTerrain(23, 33, RIGHT);
-		tmp = GetClosestTerrain(47, 57, RIGHT);
-
-		tmp = GetClosestTerrain(43, 53, LEFT);
-		tmp = GetClosestTerrain(47, 57, LEFT);
-		tmp = GetClosestTerrain(23, 33, LEFT);
-		tmp = GetClosestTerrain(23, 33, LEFT);
-
-		tmp = GetClosestTerrain(35, 36, UP);
-		tmp = GetClosestTerrain(65, 66, UP);
-		tmp = GetClosestTerrain(64, 65, UP);
-		tmp = GetClosestTerrain(63, 64, UP);
-
-		tmp = GetClosestTerrain(35, 36, DOWN);
-		tmp = GetClosestTerrain(65, 66, DOWN);
-		tmp = GetClosestTerrain(34, 35, DOWN);
-		tmp = GetClosestTerrain(63, 64, DOWN);
-		Delay1ms(30);
+		for(i = 0; i < 100; i++)
+		{
+			Delay1ms(30);
+			Character.Draw();
+			Character.Move(RIGHT, 1);
+		}
+		for (i = 0; i < 100; i++) {
+			Delay1ms(30);
+			Character.Draw();
+			Character.Move(DOWN, 1);
+		}
+		for (i = 0; i < 100; i++) {
+			Delay1ms(30);
+			Character.Draw();
+			Character.Move(LEFT, 1);
+		}
+		for (i = 0; i < 100; i++) {
+			Delay1ms(30);
+			Character.Draw();
+			Character.Move(UP, 1);
+		}
 //		ADCProcessorTrigger(ADC0_BASE, 2);
-//		Thuy.Draw();
-//		Thuy.Move(joystick_dir, 2);
+//		Character.Draw();
+//		Character.Move(joystick_dir, 2);
 	}
 }

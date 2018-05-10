@@ -41,9 +41,11 @@ extern "C"
 ///
 /// Use for Entity class
 ///
+typedef int16_t coordinates_t;
+
 typedef struct {
-    uint32_t x;
-    uint32_t y;
+	coordinates_t x;
+	coordinates_t y;
 }point_t;
 
 typedef enum {
@@ -54,8 +56,8 @@ typedef enum {
 	DOWN
 }dir_t;
 
-typedef uint32_t life_t;
-typedef uint32_t distance_t;
+typedef int16_t life_t;
+typedef int16_t distance_t;
 
 ///
 /// Use for Terrain class

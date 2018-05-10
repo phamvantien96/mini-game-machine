@@ -16,66 +16,78 @@ Entity::Entity(point_t _point, life_t _life, image_t _image)
 }
 
 void Entity::Move(dir_t _dir, distance_t distance)
-{
-	point_t endPixel = {point.x + image.numCols - 1, point.y + image.numRows - 1};
-	uint32_t mapBoundary;
+ {
+	point_t endPixel = { point.x + image.numCols - 1,
+			point.y + image.numRows - 1 };
 
-    switch(_dir)
-    {
-        case LEFT:
-        	mapBoundary = GetClosestTerrain(point.x % SQUARE_SIZE_PIXEL, _dir);
+	coordinates_t mapBoundary;
 
-        	if(point.x - distance <= mapBoundary)	distance = point.x - mapBoundary;
+	switch (_dir)
+	{
+	case LEFT:
+		mapBoundary = GetClosestTerrain(PIXEL_IDX_CALC(point.x, point.y),
+				PIXEL_IDX_CALC(point.x, endPixel.y), _dir);
 
-        	/* If distance = 0 we no change anything*/
-			if(0 != distance)
-			{
-				setAddrWindow(endPixel.x - distance + 1, point.y, endPixel.x, endPixel.y);
-				flood(BLACK, distance * image.numRows);
-				point.x -= distance;
-			}
-            break;
-        case RIGHT:
-        	mapBoundary = GetClosestTerrain(endPixel.x % SQUARE_SIZE_PIXEL, _dir);
+		if ((point.x - distance) < mapBoundary)
+			distance = point.x - mapBoundary;
 
-        	if(endPixel.x + distance >= mapBoundary)	distance = mapBoundary - endPixel.x;
+		/* If distance = 0 we no change anything*/
+		if (0 != distance) {
+			setAddrWindow(endPixel.x - distance + 1, point.y, endPixel.x,
+					endPixel.y);
 
-        	/* If distance = 0 we no change anything*/
-        	if(0 != distance)
-        	{
-				setAddrWindow(point.x, point.y, point.x + distance - 1, endPixel.y);
-				flood(BLACK, distance * image.numRows);
-				point.x += distance;
-        	}
-            break;
-        case UP:
-        	mapBoundary = GetClosestTerrain(point.y / SQUARE_SIZE_PIXEL, _dir);
+			flood(BLACK, distance * image.numRows);
+			point.x -= distance;
+		}
+		break;
+	case RIGHT:
+		mapBoundary = GetClosestTerrain(PIXEL_IDX_CALC(endPixel.x, point.y),
+				PIXEL_IDX_CALC(endPixel.x, endPixel.y), _dir);
 
-        	if(point.y - distance < mapBoundary)	distance = point.y - mapBoundary;
-        	/* If distance = 0 we no change anything*/
-			if(0 != distance)
-			{
-				setAddrWindow(point.x, endPixel.y - distance + 1, endPixel.x, endPixel.y);
-				flood(BLACK, distance * image.numCols);
-				point.y -= distance;
-			}
-            break;
-        case DOWN:
-        	mapBoundary = GetClosestTerrain(endPixel.y / SQUARE_SIZE_PIXEL, _dir);
+		if ((endPixel.x + distance) > mapBoundary)
+			distance = mapBoundary - endPixel.x;
 
-        	if(endPixel.y + distance >= mapBoundary)	distance = mapBoundary - endPixel.y - 1;
+		/* If distance = 0 we no change anything*/
+		if (0 != distance) {
+			setAddrWindow(point.x, point.y, point.x + distance - 1, endPixel.y);
+			flood(BLACK, distance * image.numRows);
+			point.x += distance;
+		}
+		break;
+	case UP:
+		mapBoundary = GetClosestTerrain(PIXEL_IDX_CALC(point.x, point.y),
+				PIXEL_IDX_CALC(endPixel.x, point.y), _dir);
 
-        	/* If distance = 0 we no change anything*/
-			if(0 != distance)
-			{
-				setAddrWindow(point.x, point.y, endPixel.x, point.y + distance - 1);
-				flood(BLACK, distance * image.numCols);
-				point.y += distance;
-			}
-            break;
-    }
+		if ((point.y - distance) < mapBoundary)
+			distance = point.y - mapBoundary;
 
-    if(0 != distance)    Draw();
+		/* If distance = 0 we no change anything*/
+		if (0 != distance) {
+			setAddrWindow(point.x, endPixel.y - distance + 1, endPixel.x,
+					endPixel.y);
+
+			flood(BLACK, distance * image.numCols);
+			point.y -= distance;
+		}
+		break;
+	case DOWN:
+		mapBoundary = GetClosestTerrain(PIXEL_IDX_CALC(point.x, endPixel.y),
+				PIXEL_IDX_CALC(endPixel.x, endPixel.y), _dir);
+
+		if ((endPixel.y + distance) > mapBoundary)
+			distance = mapBoundary - endPixel.y;
+
+		/* If distance = 0 we no change anything*/
+		if (0 != distance) {
+			setAddrWindow(point.x, point.y, endPixel.x, point.y + distance - 1);
+			flood(BLACK, distance * image.numCols);
+			point.y += distance;
+		}
+		break;
+	}
+
+	if (0 != distance)
+		Draw();
 }
 
 
