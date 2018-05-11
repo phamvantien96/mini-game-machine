@@ -7,6 +7,7 @@
 #define SRC_CHARACTER_H_
 
 #include "Entity.h"
+#include "Boom.h"
 
 #ifdef __cplusplus
 extern "C"
@@ -51,6 +52,7 @@ public:
 	void IncreaseSpeed();
 	void Move(dir_t _dir);
 	void Move(dir_t _dir, distance_t distance);
+	friend void SetBoom(Character &myCharacter);
 };
 
 #ifdef __cplusplus

@@ -43,9 +43,9 @@ extern "C"
 /// TYPEDEF
 ///
 ///****************************************************************************
-///
-/// Use for Entity class
-///
+/*
+ *  Use for Entity class
+ */
 typedef int16_t coordinates_t;
 
 typedef struct {
@@ -65,11 +65,17 @@ typedef int16_t life_t;
 typedef int16_t distance_t;
 typedef int16_t speed_t;
 
-///
-/// Use for Terrain class
-///
+/*
+ * Use for Terrain class
+ */
 /* Terrain index read from left to right, up to down */
 typedef uint8_t terr_idx_t;
+
+/*
+ * Use for Boom class
+ */
+/* Use for timeout for boom calculate by number of frame */
+typedef int16_t time_t;
 
 #ifdef __cplusplus
 }

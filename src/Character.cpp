@@ -4,6 +4,11 @@
  */
 #include "Character.h"
 
+///****************************************************************************
+///
+/// CLASS FUNCTION IMPLEMENT
+///
+///****************************************************************************
 Character::Character(point_t _point, life_t _life, image_t _image,
 		 	 	 	 uint8_t _boomAmount, uint8_t _boomLength, speed_t _speed)
 :Entity(_point, _life, _image),
@@ -104,4 +109,29 @@ void Character::Move(dir_t _dir, distance_t distance)
 
 	if (0 != distance)
 		Draw();
+}
+
+///****************************************************************************
+///
+/// FUNCTION IMPLEMENT
+///
+///****************************************************************************
+void SetBoom(Character &myCharacter)
+{
+	point_t boomCoordinates;
+	terr_idx_t boomIdx;
+
+	if((SQUARE_SIZE_PIXEL / 2) < ((myCharacter.point.x - X_MAP_OFFSET) % SQUARE_SIZE_PIXEL)) {
+		boomCoordinates.x = myCharacter.point.x + myCharacter.image.numCols - 1;
+	} else {
+		boomCoordinates.x = myCharacter.point.x;
+	}
+
+	if ((SQUARE_SIZE_PIXEL / 2) < ((myCharacter.point.y -Y_MAP_OFFSET) % SQUARE_SIZE_PIXEL)) {
+		boomCoordinates.y = myCharacter.point.y + myCharacter.image.numRows - 1;
+	} else {
+		boomCoordinates.y = myCharacter.point.y;
+	}
+
+	boomIdx = PIXEL_IDX_CALC(boomCoordinates.x, boomCoordinates.y);
 }

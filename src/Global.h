@@ -26,7 +26,8 @@ extern "C"
 ///
 ///****************************************************************************
 extern bool semaphore;
-extern Terrain WoodBox[16];
+extern Boom WaterBoom;
+extern Terrain* WoodBox[16];
 extern Character Superman;
 extern dir_t joystick_dir;
 

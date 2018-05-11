@@ -21,22 +21,24 @@ void Delay1us(uint32_t t){
 
 bool semaphore = 0;
 
-Terrain WoodBox[16] =  {Terrain(1, img_wood_box, rand() % 100),
-						Terrain(1, img_wood_box, rand() % 100),
-						Terrain(1, img_wood_box, rand() % 100),
-						Terrain(1, img_wood_box, rand() % 100),
-						Terrain(1, img_wood_box, rand() % 100),
-						Terrain(1, img_wood_box, rand() % 100),
-						Terrain(1, img_wood_box, rand() % 100),
-						Terrain(1, img_wood_box, rand() % 100),
-						Terrain(1, img_wood_box, rand() % 100),
-						Terrain(1, img_wood_box, rand() % 100),
-						Terrain(1, img_wood_box, rand() % 100),
-						Terrain(1, img_wood_box, rand() % 100),
-						Terrain(1, img_wood_box, rand() % 100),
-						Terrain(1, img_wood_box, rand() % 100),
-						Terrain(1, img_wood_box, rand() % 100),
-						Terrain(1, img_wood_box, rand() % 100)};
+Boom WaterBoom(1, img_wood_box, 5);
+
+Terrain* WoodBox[16] = {new Terrain(1, img_wood_box, rand() % 100),
+						new Terrain(1, img_wood_box, rand() % 100),
+						new Terrain(1, img_wood_box, rand() % 100),
+						new Terrain(1, img_wood_box, rand() % 100),
+						new Terrain(1, img_wood_box, rand() % 100),
+						new Terrain(1, img_wood_box, rand() % 100),
+						new Terrain(1, img_wood_box, rand() % 100),
+						new Terrain(1, img_wood_box, rand() % 100),
+						new Terrain(1, img_wood_box, rand() % 100),
+						new Terrain(1, img_wood_box, rand() % 100),
+						new Terrain(1, img_wood_box, rand() % 100),
+						new Terrain(1, img_wood_box, rand() % 100),
+						new Terrain(1, img_wood_box, rand() % 100),
+						new Terrain(1, img_wood_box, rand() % 100),
+						new Terrain(1, img_wood_box, rand() % 100),
+						new Terrain(1, img_wood_box, rand() % 100)};
 
 Character Superman((point_t) {0, 48}, 1, img_superman, 1, 1, 1);
 

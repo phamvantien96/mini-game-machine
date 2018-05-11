@@ -5,6 +5,9 @@
 
 #include "Terrain.h"
 
+/*
+ * Information about map
+ */
 uint8_t map_terrain[MAX_IDX] = {};
 
 ///****************************************************************************
@@ -18,6 +21,12 @@ Terrain::Terrain(life_t _life, image_t _image, terr_idx_t _terrainIdx)
 terrainIdx(_terrainIdx)
 {
 	map_terrain[_terrainIdx] = 1;
+}
+
+Terrain::~Terrain()
+{
+	map_terrain[terrainIdx] = 0;
+	Destroy();
 }
 
 void Terrain::ChangeTerrainIdx(terr_idx_t _idx)
@@ -34,8 +43,6 @@ void Terrain::ChangeTerrainIdx(terr_idx_t _idx)
 
 void Terrain::Destroy()
 {
-	map_terrain[terrainIdx] = 0;
-
 	Clear();
 }
 

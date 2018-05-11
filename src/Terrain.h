@@ -42,10 +42,11 @@ coordinates_t GetClosestTerrain(terr_idx_t _idx_st, terr_idx_t _idx_nd, dir_t _d
 ///
 ///****************************************************************************
 class Terrain:public Entity {
-private:
+public:
 	terr_idx_t terrainIdx;
 public:
 	Terrain(life_t _life, image_t _image, terr_idx_t _terrainIdx);
+	~Terrain();
 	void ChangeTerrainIdx(terr_idx_t _idx);
 	void Destroy();
 };

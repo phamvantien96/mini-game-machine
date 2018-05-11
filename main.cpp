@@ -29,8 +29,10 @@ int main(void){
 	int i, j;
 
 	for(i = 0; i < 16; i++)
-		WoodBox[i].Draw();
+		WoodBox[i]->Draw();
 	Superman.Draw();
+
+	WaterBoom.Draw();
 
 	i = 0;
 	j = 0;
@@ -46,7 +48,7 @@ int main(void){
 			if(0 == i++ % 200)
 			{
 				Superman.IncreaseSpeed();
-				WoodBox[j++].Destroy();
+				delete (WoodBox[j++]);
 			}
 		}
 	}
