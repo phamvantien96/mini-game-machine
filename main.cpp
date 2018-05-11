@@ -36,13 +36,18 @@ int main(void){
 	j = 0;
 
 	while(1) {
-		ADCProcessorTrigger(ADC0_BASE, 2);
-		Delay1ms(30);
-		Superman.Move(joystick_dir);
-		if(0 == i++ % 100)
+		if(1 == semaphore)
 		{
-			Superman.IncreaseSpeed();
-			WoodBox[j++].Destroy();
+			/* Clear semaphore and wait for next interrupt */
+			semaphore = 0;
+
+			ADCProcessorTrigger(ADC0_BASE, 2);
+			Superman.Move(joystick_dir);
+			if(0 == i++ % 200)
+			{
+				Superman.IncreaseSpeed();
+				WoodBox[j++].Destroy();
+			}
 		}
 	}
 }

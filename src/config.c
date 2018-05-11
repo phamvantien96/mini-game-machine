@@ -51,10 +51,6 @@ void static inline GPIO_Init(void)
 	GPIOPinTypeGPIOOutput(GPIO_PORTB_BASE, PORTB_PIN_USE);
 }
 
-
-
-
-
 void System_Init(void)
 {
     ///
@@ -69,9 +65,9 @@ void System_Init(void)
 	///  SysTick Init
 	///
 	/* Set 0.1 second period interrupt */
-	SysTickPeriodSet(8E6-1);
-//	SysTickIntRegister(SysTick_Handler);
-//	SysTickIntEnable();
+	SysTickPeriodSet(FPS2CLK);
+	SysTickIntRegister(SysTick_Handler);
+	SysTickIntEnable();
 	SysTickEnable();
 
 	///
@@ -91,10 +87,6 @@ void System_Init(void)
 	/* Unlock and set pull-up for input PF0 */
 	GPIO_PORTF_LOCK_R = GPIO_LOCK_KEY;
 	GPIO_PORTF_CR_R |= 0xFF;
-
-
-	HWREG(GPIO_PORTF_BASE+GPIO_O_LOCK) = GPIO_LOCK_KEY;
-	HWREG(GPIO_PORTF_BASE+GPIO_O_CR) |= GPIO_PIN_0;
 
 	GPIOPinTypeGPIOInput(GPIO_PORTF_BASE, GPIO_PIN_0);
 	GPIOPadConfigSet(GPIO_PORTF_BASE,
@@ -129,6 +121,12 @@ void System_Init(void)
 
 void SysTick_Handler(void)
 {
+	semaphore = 1;
+
+	/*
+	 * If in systick interrupt call this function to make a adc interrupt
+	 * then the program error interrupt
+	 */
 //	ADCProcessorTrigger(ADC0_BASE, 2);
 }
 

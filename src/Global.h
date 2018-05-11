@@ -25,6 +25,7 @@ extern "C"
 /// EXTERNAL VARIABLE
 ///
 ///****************************************************************************
+extern bool semaphore;
 extern Terrain WoodBox[16];
 extern Character Superman;
 extern dir_t joystick_dir;
