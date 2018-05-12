@@ -5,6 +5,38 @@
 
 #include "Global.h"
 
+///****************************************************************************
+///
+/// GLOBAL VARIABLE
+///
+///****************************************************************************
+bool semaphore_systick = 0;
+bool semaphore_sw	   = 0;
+
+Terrain* WoodBox[16] = {new Terrain(1, wood_box, rand() % 100),
+						new Terrain(1, wood_box, rand() % 100),
+						new Terrain(1, wood_box, rand() % 100),
+						new Terrain(1, wood_box, rand() % 100),
+						new Terrain(1, wood_box, rand() % 100),
+						new Terrain(1, wood_box, rand() % 100),
+						new Terrain(1, wood_box, rand() % 100),
+						new Terrain(1, wood_box, rand() % 100),
+						new Terrain(1, wood_box, rand() % 100),
+						new Terrain(1, wood_box, rand() % 100),
+						new Terrain(1, wood_box, rand() % 100),
+						new Terrain(1, wood_box, rand() % 100),
+						new Terrain(1, wood_box, rand() % 100),
+						new Terrain(1, wood_box, rand() % 100),
+						new Terrain(1, wood_box, rand() % 100),
+						new Terrain(1, wood_box, rand() % 100)};
+
+dir_t joystick_dir = STAY;
+
+///****************************************************************************
+///
+/// FUNCTION IMPLEMENT
+///
+///****************************************************************************
 void Delay1ms(uint32_t t){
 	while(t--){
 		uint16_t x = ONE_MSEC;
@@ -18,29 +50,4 @@ void Delay1us(uint32_t t){
 		while(x--);
 	}
 }
-
-bool semaphore = 0;
-
-Boom WaterBoom(1, img_wood_box, 5);
-
-Terrain* WoodBox[16] = {new Terrain(1, img_wood_box, rand() % 100),
-						new Terrain(1, img_wood_box, rand() % 100),
-						new Terrain(1, img_wood_box, rand() % 100),
-						new Terrain(1, img_wood_box, rand() % 100),
-						new Terrain(1, img_wood_box, rand() % 100),
-						new Terrain(1, img_wood_box, rand() % 100),
-						new Terrain(1, img_wood_box, rand() % 100),
-						new Terrain(1, img_wood_box, rand() % 100),
-						new Terrain(1, img_wood_box, rand() % 100),
-						new Terrain(1, img_wood_box, rand() % 100),
-						new Terrain(1, img_wood_box, rand() % 100),
-						new Terrain(1, img_wood_box, rand() % 100),
-						new Terrain(1, img_wood_box, rand() % 100),
-						new Terrain(1, img_wood_box, rand() % 100),
-						new Terrain(1, img_wood_box, rand() % 100),
-						new Terrain(1, img_wood_box, rand() % 100)};
-
-Character Superman((point_t) {0, 48}, 1, img_superman, 1, 1, 1);
-
-dir_t joystick_dir = STAY;
 

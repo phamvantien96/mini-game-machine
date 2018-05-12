@@ -39,6 +39,7 @@ public:
 	image_t image;
 	life_t life;
 public:
+	Entity();
 	Entity(image_t _image);
 	Entity(point_t _point, life_t _life, image_t _image);
 	void SetPoint(point_t _point);

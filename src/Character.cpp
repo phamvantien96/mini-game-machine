@@ -12,13 +12,18 @@
 Character::Character(point_t _point, life_t _life, image_t _image,
 		 	 	 	 uint8_t _boomAmount, uint8_t _boomLength, speed_t _speed)
 :Entity(_point, _life, _image),
- boomAmount(_boomAmount), boomLength(_boomLength), speed(_speed)
+ boomAmount(_boomAmount),
+ boomAmountCurr(0),
+ boomLength(_boomLength),
+ speed(_speed),
+ boomVector(_boomAmount)
 {
 }
 
 void Character::IncreaseBoomAmount()
 {
 	boomAmount++;
+	boomVector.push_back(Boom());
 }
 
 void Character::IncreaseBoomLength()
@@ -111,27 +116,45 @@ void Character::Move(dir_t _dir, distance_t distance)
 		Draw();
 }
 
-///****************************************************************************
-///
-/// FUNCTION IMPLEMENT
-///
-///****************************************************************************
-void SetBoom(Character &myCharacter)
+void Character::SetBoom()
 {
+	if(boomAmountCurr == boomAmount)	return;
+
 	point_t boomCoordinates;
 	terr_idx_t boomIdx;
 
-	if((SQUARE_SIZE_PIXEL / 2) < ((myCharacter.point.x - X_MAP_OFFSET) % SQUARE_SIZE_PIXEL)) {
-		boomCoordinates.x = myCharacter.point.x + myCharacter.image.numCols - 1;
+	if((SQUARE_SIZE_PIXEL / 2) < ((point.x - X_MAP_OFFSET) % SQUARE_SIZE_PIXEL)) {
+		boomCoordinates.x = point.x + image.numCols - 1;
 	} else {
-		boomCoordinates.x = myCharacter.point.x;
+		boomCoordinates.x = point.x;
 	}
 
-	if ((SQUARE_SIZE_PIXEL / 2) < ((myCharacter.point.y -Y_MAP_OFFSET) % SQUARE_SIZE_PIXEL)) {
-		boomCoordinates.y = myCharacter.point.y + myCharacter.image.numRows - 1;
+	if ((SQUARE_SIZE_PIXEL / 2) < ((point.y -Y_MAP_OFFSET) % SQUARE_SIZE_PIXEL)) {
+		boomCoordinates.y = point.y + image.numRows - 1;
 	} else {
-		boomCoordinates.y = myCharacter.point.y;
+		boomCoordinates.y = point.y;
 	}
 
 	boomIdx = PIXEL_IDX_CALC(boomCoordinates.x, boomCoordinates.y);
+
+	for(int i = 0; i < boomAmount; i++)
+	{
+		if(BOOM_EXIST == boomVector[i].life)
+		{
+			if(boomVector[i].terrainIdx == boomIdx)    return;
+		}
+	}
+
+	for(int i = 0; i < boomAmount; i++)
+	{
+		if(BOOM_NOT_EXIST == boomVector[i].life)
+		{
+			boomAmountCurr++;
+			boomVector[i].life = BOOM_EXIST;
+			boomVector[i].ChangeTerrainIdx(boomIdx);
+			boomVector[i].Draw();
+
+			return;
+		}
+	}
 }

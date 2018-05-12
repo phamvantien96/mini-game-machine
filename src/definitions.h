@@ -17,6 +17,11 @@ extern "C"
 /// DEFINE
 ///
 ///****************************************************************************
+/*
+ * Pre-processor define
+ */
+#define USE_SWITCH_ISR				1
+
 #define PORTE_PIN_USE 				0x1F
 #define PORTB_PIN_USE 				0xFF
 
@@ -69,7 +74,7 @@ typedef int16_t speed_t;
  * Use for Terrain class
  */
 /* Terrain index read from left to right, up to down */
-typedef uint8_t terr_idx_t;
+typedef int16_t terr_idx_t;
 
 /*
  * Use for Boom class

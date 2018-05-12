@@ -4,6 +4,9 @@
  */
 
 #include "Entity.h"
+Entity::Entity()
+{
+}
 
 Entity::Entity(image_t _image)
 :point((point_t){0, 0}), life(0), image(_image)

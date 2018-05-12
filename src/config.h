@@ -36,7 +36,8 @@ extern "C"
 /// EXTERNAL VARIABLE
 ///
 ///****************************************************************************
-extern bool semaphore;
+extern bool semaphore_systick;
+extern bool semaphore_sw;
 
 ///****************************************************************************
 ///
@@ -53,7 +54,11 @@ extern bool semaphore;
  */
 void System_Init(void);
 void SysTick_Handler(void);
-void Switch_Handler(void);
+
+#if USE_SWITCH_ISR
+	void Switch_Handler(void);
+#endif
+
 #ifdef __cplusplus
 }
 #endif

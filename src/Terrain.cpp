@@ -15,6 +15,11 @@ uint8_t map_terrain[MAX_IDX] = {};
 /// CLASS FUNCTION IMPLEMENTATION
 ///
 ///****************************************************************************
+Terrain::Terrain()
+:terrainIdx(NULL_TERRAIN)
+{
+}
+
 Terrain::Terrain(life_t _life, image_t _image, terr_idx_t _terrainIdx)
 :Entity((point_t) {X_CALC(_terrainIdx), Y_CALC(_terrainIdx)},
 		_life, _image),
@@ -32,7 +37,7 @@ Terrain::~Terrain()
 void Terrain::ChangeTerrainIdx(terr_idx_t _idx)
 {
 	/* Clear and update map terrain */
-	map_terrain[terrainIdx] = 0;
+	if(NULL_TERRAIN != terrainIdx)	map_terrain[terrainIdx] = 0;
 	terrainIdx = _idx;
 	map_terrain[terrainIdx] = 1;
 

@@ -26,30 +26,32 @@ int main(void){
 	flood(BLACK, 240*320);
 	ADC_Init();
 
+	Character Superman((point_t) {0, 48}, 1, superman, 6, 1, 1);
+
 	int i, j;
 
 	for(i = 0; i < 16; i++)
 		WoodBox[i]->Draw();
 	Superman.Draw();
 
-	WaterBoom.Draw();
-
 	i = 0;
 	j = 0;
 
 	while(1) {
-		if(1 == semaphore)
+		if(1 == semaphore_systick)
 		{
 			/* Clear semaphore and wait for next interrupt */
-			semaphore = 0;
+			semaphore_systick = 0;
 
 			ADCProcessorTrigger(ADC0_BASE, 2);
 			Superman.Move(joystick_dir);
-			if(0 == i++ % 200)
-			{
-				Superman.IncreaseSpeed();
-				delete (WoodBox[j++]);
-			}
+		}
+
+		if(1 == semaphore_sw)
+		{
+			semaphore_sw = 0;
+
+			Superman.SetBoom();
 		}
 	}
 }

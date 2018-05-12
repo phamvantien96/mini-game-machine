@@ -18,6 +18,8 @@ extern "C"
 ///
 ///****************************************************************************
 #define BOOM_TIMEOUT		(2 * FPS)
+#define BOOM_EXIST			1
+#define BOOM_NOT_EXIST		0
 
 ///****************************************************************************
 ///
@@ -34,6 +36,7 @@ class Boom:public Terrain {
 public:
 	time_t timeLife;
 public:
+	Boom();
 	Boom(life_t _life, image_t _image, terr_idx_t _boomIdx);
 	void DecreaseTimeLife();
 };

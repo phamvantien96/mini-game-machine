@@ -9,9 +9,8 @@ typedef struct {
 	uint16_t *image;
 } image_t;
 
-extern const image_t img_woof;
-extern const image_t img_thuy;
-extern const image_t img_superman;
-extern const image_t img_wood_box;
+extern const image_t superman;
+extern const image_t wood_box;
+extern const image_t water_boom;
 
 #endif /* image.h */

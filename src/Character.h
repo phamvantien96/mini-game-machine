@@ -6,6 +6,7 @@
 #ifndef SRC_CHARACTER_H_
 #define SRC_CHARACTER_H_
 
+#include <vector>
 #include "Entity.h"
 #include "Boom.h"
 
@@ -42,8 +43,10 @@ extern coordinates_t GetClosestTerrain(terr_idx_t _idx_st,
 class Character:public Entity {
 public:
 	uint8_t boomAmount;
+	uint8_t boomAmountCurr;
 	uint8_t boomLength;
 	speed_t speed;
+	std::vector<Boom> boomVector;
 public:
 	Character(point_t _point, life_t _life, image_t _image,
 			  uint8_t _boomAmount, uint8_t _boomLength, speed_t _speed);
@@ -52,7 +55,7 @@ public:
 	void IncreaseSpeed();
 	void Move(dir_t _dir);
 	void Move(dir_t _dir, distance_t distance);
-	friend void SetBoom(Character &myCharacter);
+	void SetBoom();
 };
 
 #ifdef __cplusplus

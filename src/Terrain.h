@@ -17,6 +17,8 @@ extern "C"
 /// DEFINE AND MARCO
 ///
 ///****************************************************************************
+#define NULL_TERRAIN	-1
+
 /**
  * Marco calculate x, y from terrain index
  */
@@ -45,6 +47,7 @@ class Terrain:public Entity {
 public:
 	terr_idx_t terrainIdx;
 public:
+	Terrain();
 	Terrain(life_t _life, image_t _image, terr_idx_t _terrainIdx);
 	~Terrain();
 	void ChangeTerrainIdx(terr_idx_t _idx);
