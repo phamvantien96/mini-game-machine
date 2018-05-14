@@ -22,8 +22,8 @@ extern "C"
 /**
  * Marco calculate x, y from terrain index
  */
-#define X_CALC(idx)		((idx % MAP_WIDTH ) * SQUARE_SIZE_PIXEL + X_MAP_OFFSET)
-#define Y_CALC(idx)		((idx / MAP_LENGTH) * SQUARE_SIZE_PIXEL + Y_MAP_OFFSET)
+#define X_CALC(idx)		((idx % MAP_WIDTH ) * SQUARE_EDGE_PIXEL + X_MAP_OFFSET)
+#define Y_CALC(idx)		((idx / MAP_LENGTH) * SQUARE_EDGE_PIXEL + Y_MAP_OFFSET)
 
 ///****************************************************************************
 ///
@@ -37,6 +37,7 @@ extern "C"
 ///
 ///****************************************************************************
 coordinates_t GetClosestTerrain(terr_idx_t _idx_st, terr_idx_t _idx_nd, dir_t _dir);
+uint16_t * GetImageFromIdx(terr_idx_t idx);
 
 ///****************************************************************************
 ///
@@ -48,9 +49,9 @@ public:
 	terr_idx_t terrainIdx;
 public:
 	Terrain();
-	Terrain(life_t _life, image_t _image, terr_idx_t _terrainIdx);
+	Terrain(life_t _life, image_t _image, terr_idx_t _terrainIdx, map_t _kindOfTerrain);
 	~Terrain();
-	void ChangeTerrainIdx(terr_idx_t _idx);
+	void ChangeTerrainIdx(terr_idx_t _idx, map_t _kindOfTerrain);
 	void Destroy();
 };
 

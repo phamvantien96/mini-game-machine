@@ -7,6 +7,7 @@
 #define SRC_CHARACTER_H_
 
 #include <vector>
+#include <stdlib.h>
 #include "Entity.h"
 #include "Boom.h"
 
@@ -22,8 +23,8 @@ extern "C"
 /*
  * This two marco use for calculate column and row index on map
  */
-#define COL_IDX(x)				((x - X_MAP_OFFSET) / SQUARE_SIZE_PIXEL)
-#define ROW_IDX(y)				((y - Y_MAP_OFFSET) / SQUARE_SIZE_PIXEL)
+#define COL_IDX(x)				((x - X_MAP_OFFSET) / SQUARE_EDGE_PIXEL)
+#define ROW_IDX(y)				((y - Y_MAP_OFFSET) / SQUARE_EDGE_PIXEL)
 
 #define PIXEL_IDX_CALC(x, y)	(COL_IDX(x) + MAP_LENGTH * ROW_IDX(y))
 
@@ -34,6 +35,7 @@ extern "C"
 ///****************************************************************************
 extern coordinates_t GetClosestTerrain(terr_idx_t _idx_st,
 									   terr_idx_t _idx_nd, dir_t _dir);
+extern uint16_t * GetImageFromIdx(terr_idx_t idx);
 
 ///****************************************************************************
 ///

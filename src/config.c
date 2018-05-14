@@ -140,7 +140,5 @@ void SysTick_Handler(void)
 
 		/* Acknowledge interrupt */
 		GPIOIntClear(GPIO_PORTF_BASE, GPIO_INT_PIN_0);
-	//	led ^= 0x02;
-	//	GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_1, led);
 	}
 #endif

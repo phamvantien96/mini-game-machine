@@ -17,6 +17,9 @@ extern "C"
 /// DEFINE
 ///
 ///****************************************************************************
+#define TRUE 						1
+#define FALSE						0
+
 /*
  * Pre-processor define
  */
@@ -36,12 +39,14 @@ extern "C"
 /*
  * Define for map
  */
-#define SQUARE_SIZE_PIXEL 			24
+#define SQUARE_EDGE_PIXEL 			24
 #define MAP_WIDTH					10
 #define MAP_LENGTH					10
-#define MAX_IDX						(MAP_WIDTH * MAP_LENGTH)
 #define Y_MAP_OFFSET				48
 #define X_MAP_OFFSET				0
+
+#define MAX_IDX						(MAP_WIDTH * MAP_LENGTH)
+#define SQUARE_PIXEL				(SQUARE_EDGE_PIXEL * SQUARE_EDGE_PIXEL)
 
 ///****************************************************************************
 ///
@@ -75,6 +80,12 @@ typedef int16_t speed_t;
  */
 /* Terrain index read from left to right, up to down */
 typedef int16_t terr_idx_t;
+
+typedef enum {
+	BACKGROUND,
+	WOOD_BOX,
+	BOOM
+}map_t;
 
 /*
  * Use for Boom class

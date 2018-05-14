@@ -13,22 +13,22 @@
 bool semaphore_systick = 0;
 bool semaphore_sw	   = 0;
 
-Terrain* WoodBox[16] = {new Terrain(1, wood_box, rand() % 100),
-						new Terrain(1, wood_box, rand() % 100),
-						new Terrain(1, wood_box, rand() % 100),
-						new Terrain(1, wood_box, rand() % 100),
-						new Terrain(1, wood_box, rand() % 100),
-						new Terrain(1, wood_box, rand() % 100),
-						new Terrain(1, wood_box, rand() % 100),
-						new Terrain(1, wood_box, rand() % 100),
-						new Terrain(1, wood_box, rand() % 100),
-						new Terrain(1, wood_box, rand() % 100),
-						new Terrain(1, wood_box, rand() % 100),
-						new Terrain(1, wood_box, rand() % 100),
-						new Terrain(1, wood_box, rand() % 100),
-						new Terrain(1, wood_box, rand() % 100),
-						new Terrain(1, wood_box, rand() % 100),
-						new Terrain(1, wood_box, rand() % 100)};
+Terrain* WoodBox[16] = {new Terrain(1, wood_box, rand() % 100, WOOD_BOX),
+						new Terrain(1, wood_box, rand() % 100, WOOD_BOX),
+						new Terrain(1, wood_box, rand() % 100, WOOD_BOX),
+						new Terrain(1, wood_box, rand() % 100, WOOD_BOX),
+						new Terrain(1, wood_box, rand() % 100, WOOD_BOX),
+						new Terrain(1, wood_box, rand() % 100, WOOD_BOX),
+						new Terrain(1, wood_box, rand() % 100, WOOD_BOX),
+						new Terrain(1, wood_box, rand() % 100, WOOD_BOX),
+						new Terrain(1, wood_box, rand() % 100, WOOD_BOX),
+						new Terrain(1, wood_box, rand() % 100, WOOD_BOX),
+						new Terrain(1, wood_box, rand() % 100, WOOD_BOX),
+						new Terrain(1, wood_box, rand() % 100, WOOD_BOX),
+						new Terrain(1, wood_box, rand() % 100, WOOD_BOX),
+						new Terrain(1, wood_box, rand() % 100, WOOD_BOX),
+						new Terrain(1, wood_box, rand() % 100, WOOD_BOX),
+						new Terrain(1, wood_box, rand() % 100, WOOD_BOX)};
 
 dir_t joystick_dir = STAY;
 

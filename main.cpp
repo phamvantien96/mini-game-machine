@@ -22,20 +22,14 @@ int main(void){
 	System_Init();
 	LCD_Reset();
 	LCD_Begin();
-	setAddrWindow(0, 0, 239, 319);
-	flood(BLACK, 240*320);
 	ADC_Init();
+	flood(WHITE, TFTHEIGHT*TFTWIDTH);
 
 	Character Superman((point_t) {0, 48}, 1, superman, 6, 1, 1);
 
-	int i, j;
-
-	for(i = 0; i < 16; i++)
+	for(int i = 0; i < 16; i++)
 		WoodBox[i]->Draw();
 	Superman.Draw();
-
-	i = 0;
-	j = 0;
 
 	while(1) {
 		if(1 == semaphore_systick)
@@ -49,6 +43,7 @@ int main(void){
 
 		if(1 == semaphore_sw)
 		{
+			/* Clear semaphore and wait for next interrupt */
 			semaphore_sw = 0;
 
 			Superman.SetBoom();
