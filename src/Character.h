@@ -58,6 +58,7 @@ public:
 	void Move(dir_t _dir);
 	void Move(dir_t _dir, distance_t distance);
 	void SetBoom();
+	void WaitBoomExplode();
 };
 
 #ifdef __cplusplus

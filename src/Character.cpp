@@ -254,3 +254,14 @@ void GetBG(point_t pointStart, point_t pointEnd, uint16_t * bgImgPtr)
 
 	delete [] bufferImg;
 }
+
+void Character::WaitBoomExplode()
+{
+	for(int i = 0; i < boomAmount; i++)
+	{
+		if(BOOM_EXIST == boomVector[i].life)
+		{
+			if(TRUE == boomVector[i].WaitExplode())	  boomAmountCurr--;
+		}
+	}
+}

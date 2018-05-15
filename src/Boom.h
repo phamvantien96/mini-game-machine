@@ -38,7 +38,7 @@ public:
 public:
 	Boom();
 	Boom(life_t _life, image_t _image, terr_idx_t _boomIdx);
-	void DecreaseTimeLife();
+	bool WaitExplode();
 };
 
 #ifdef __cplusplus

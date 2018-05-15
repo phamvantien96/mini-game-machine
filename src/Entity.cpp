@@ -27,14 +27,14 @@ void Entity::Draw()
 
 /** @breif Entity::Clear
  *
- * 	Default clear entity with BLACK color
+ * 	Default clear entity with background image
  *
  */
 void Entity::Clear()
 {
 	setAddrWindow(point.x, point.y, point.x + image.numCols - 1, point.y + image.numRows - 1);
 
-	flood(BLACK, image.numCols * image.numRows);
+	pushColors(back_ground.image, back_ground.numCols * back_ground.numRows, 1);
 }
 
 void Entity::Destroy()

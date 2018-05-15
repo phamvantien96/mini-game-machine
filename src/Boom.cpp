@@ -17,14 +17,22 @@ Boom::Boom(life_t _life, image_t _image, terr_idx_t _boomIdx)
 {
 }
 
-void Boom::DecreaseTimeLife()
+bool Boom::WaitExplode()
 {
+	bool isExplode = 0;
+
 	timeLife--;
 
 	if(0 == timeLife)
 	{
+		map_terrain[terrainIdx] = BACKGROUND;
 		life = BOOM_NOT_EXIST;
+		timeLife = BOOM_TIMEOUT;
+		isExplode = 1;
+
 		Destroy();
 	}
+
+	return isExplode;
 }
 

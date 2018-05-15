@@ -39,6 +39,7 @@ int main(void){
 
 			ADCProcessorTrigger(ADC0_BASE, 2);
 			Superman.Move(joystick_dir);
+			Superman.WaitBoomExplode();
 		}
 
 		if(1 == semaphore_sw)
