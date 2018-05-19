@@ -15,23 +15,30 @@
 #include "image.h"
 #include "Global.h"
 #include "joystick.h"
+#include "communication.h"
 
-int main(void){
+
+char uart_ch;
+uint8_t led2;
+
+int main(void) {
 	System_Init();
-	LCD_Reset();
-	LCD_Begin();
-	Joystick_Init();
-	setAddrWindow(0, 0, 239, 319);
-	flood(BLACK, 240*320);
-
-	WoodBox[0].Draw();
-	WoodBox[1].Draw();
-	WoodBox[2].Draw();
-	WoodBox[3].Draw();
+	Communication_Init();
+//	LCD_Reset();
+//	LCD_Begin();
+//	Joystick_Init();
+//	setAddrWindow(0, 0, 239, 319);
+//	flood(BLACK, 240*320);
+//
+//	WoodBox[0].Draw();
+//	WoodBox[1].Draw();
+//	WoodBox[2].Draw();
+//	WoodBox[3].Draw();
 
 	while(1) {
-		Delay1ms(30);
-		Character.Draw();
-		Character.Move(joystick_dir, 2);
+//		Delay1ms(30);
+//		Character.Draw();
+//		Character.Move(joystick_dir, 2);
+//		UARTCharPut(UART0_BASE, 's');
 	}
 }
