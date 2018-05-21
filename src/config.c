@@ -51,10 +51,6 @@ void static inline GPIO_Init(void)
 	GPIOPinTypeGPIOOutput(GPIO_PORTB_BASE, PORTB_PIN_USE);
 }
 
-
-
-
-
 void System_Init(void)
 {
     ///
@@ -69,9 +65,9 @@ void System_Init(void)
 	///  SysTick Init
 	///
 	/* Set 0.1 second period interrupt */
-	SysTickPeriodSet(8E6-1);
-//	SysTickIntRegister(SysTick_Handler);
-//	SysTickIntEnable();
+	SysTickPeriodSet(FPS2CLK);
+	SysTickIntRegister(SysTick_Handler);
+	SysTickIntEnable();
 	SysTickEnable();
 
 	///
@@ -92,18 +88,17 @@ void System_Init(void)
 	GPIO_PORTF_LOCK_R = GPIO_LOCK_KEY;
 	GPIO_PORTF_CR_R |= 0xFF;
 
-
-	HWREG(GPIO_PORTF_BASE+GPIO_O_LOCK) = GPIO_LOCK_KEY;
-	HWREG(GPIO_PORTF_BASE+GPIO_O_CR) |= GPIO_PIN_0;
-
 	GPIOPinTypeGPIOInput(GPIO_PORTF_BASE, GPIO_PIN_0);
 	GPIOPadConfigSet(GPIO_PORTF_BASE,
 					 GPIO_PIN_0,
 					 GPIO_STRENGTH_2MA,
 					 GPIO_PIN_TYPE_STD_WPU);
-	GPIOIntTypeSet(GPIO_PORTF_BASE, GPIO_PIN_0, GPIO_RISING_EDGE);
+
+#if USE_SWITCH_ISR
+	GPIOIntTypeSet(GPIO_PORTF_BASE, GPIO_PIN_0, GPIO_FALLING_EDGE);
 	GPIOIntRegister(GPIO_PORTF_BASE, Switch_Handler);
 	GPIOIntEnable(GPIO_PORTF_BASE, GPIO_INT_PIN_0);
+#endif
 
 	///
 	///  UART Init
@@ -129,14 +124,21 @@ void System_Init(void)
 
 void SysTick_Handler(void)
 {
+	semaphore_systick = 1;
+
+	/*
+	 * If in systick interrupt call this function to make a adc interrupt
+	 * then the program error interrupt
+	 */
 //	ADCProcessorTrigger(ADC0_BASE, 2);
 }
 
-static uint8_t led = 0;
+#if USE_SWITCH_ISR
+	void Switch_Handler(void)
+	{
+		semaphore_sw = 1;
 
-void Switch_Handler(void)
-{
-	led ^= 0x02;
-	GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_1, led);
-	GPIOIntClear(GPIO_PORTF_BASE, GPIO_INT_PIN_0);
-}
+		/* Acknowledge interrupt */
+		GPIOIntClear(GPIO_PORTF_BASE, GPIO_INT_PIN_0);
+	}
+#endif

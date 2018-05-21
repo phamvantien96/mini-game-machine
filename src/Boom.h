@@ -1,19 +1,15 @@
-/** @file main.c
+/** @file Character.h
  *  @author Tien.P.V
- *  @date 07-May-2018
+ *  @date 10-May-2018
  */
 
-#ifndef _BASE_OBJECT_H_
-#define _BASE_OBJECT_H_
+#ifndef SRC_BOOM_H_
+#define SRC_BOOM_H_
 
-#include <stdint.h>
-#include <stdbool.h>
-#include "image.h"
-#include "lcd_driver.h"
-#include "definitions.h"
+#include "Terrain.h"
 
 #ifdef __cplusplus
-extern "C" 
+extern "C"
 {
 #endif  /* __cplusplus */
 ///****************************************************************************
@@ -21,37 +17,41 @@ extern "C"
 /// DEFINE AND MARCO
 ///
 ///****************************************************************************
+#define BOOM_TIMEOUT		(2 * FPS)
+#define EXPLODE_TIME		(FPS)
+#define BOOM_EXIST			1
+#define BOOM_NOT_EXIST		0
+
+#define NOT_EXPLODE			-1
+
+#define DEFAULT_BOOM_LEN	1
 
 ///****************************************************************************
 ///
 /// EXTERNAL VARIABLE AND FUNCTION
 ///
 ///****************************************************************************
+extern uint16_t * GetImageFromIdx(terr_idx_t idx);
 
 ///****************************************************************************
 ///
 /// CLASS PROTOTYPE
 ///
 ///****************************************************************************
-class Entity {
+class Boom:public Terrain {
 public:
-	point_t point;
-	image_t image;
-	life_t life;
+	time_t timeLife;
+	time_t timeExplode;
+	int8_t boomLength;
 public:
-	Entity();
-	Entity(image_t _image);
-	Entity(point_t _point, life_t _life, image_t _image);
-	void SetPoint(point_t _point);
-	void SetImage(image_t _image);
-	point_t GetPoint(Entity);
-	void Draw();
-	void Clear();
-	virtual void Destroy();
+	Boom();
+	Boom(life_t _life, image_t _image, terr_idx_t _boomIdx, int8_t _boomLength);
+	bool WaitExplode();
+	void Explode();
 };
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif
+#endif /* SRC_BOOM_H_ */

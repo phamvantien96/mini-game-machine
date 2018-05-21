@@ -5,10 +5,38 @@
 
 #include "Global.h"
 
-unsigned long TimerCount;
-unsigned long Semaphore;
-unsigned long FrameCount=0;
+///****************************************************************************
+///
+/// GLOBAL VARIABLE
+///
+///****************************************************************************
+bool semaphore_systick = 0;
+bool semaphore_sw	   = 0;
 
+Terrain* WoodBox[16] = {new Terrain(1, wood_box, rand() % 100, WOOD_BOX),
+						new Terrain(1, wood_box, rand() % 100, WOOD_BOX),
+						new Terrain(1, wood_box, rand() % 100, WOOD_BOX),
+						new Terrain(1, wood_box, rand() % 100, WOOD_BOX),
+						new Terrain(1, wood_box, rand() % 100, WOOD_BOX),
+						new Terrain(1, wood_box, rand() % 100, WOOD_BOX),
+						new Terrain(1, wood_box, rand() % 100, WOOD_BOX),
+						new Terrain(1, wood_box, rand() % 100, WOOD_BOX),
+						new Terrain(1, wood_box, rand() % 100, WOOD_BOX),
+						new Terrain(1, wood_box, rand() % 100, WOOD_BOX),
+						new Terrain(1, wood_box, rand() % 100, WOOD_BOX),
+						new Terrain(1, wood_box, rand() % 100, WOOD_BOX),
+						new Terrain(1, wood_box, rand() % 100, WOOD_BOX),
+						new Terrain(1, wood_box, rand() % 100, WOOD_BOX),
+						new Terrain(1, wood_box, rand() % 100, WOOD_BOX),
+						new Terrain(1, wood_box, rand() % 100, WOOD_BOX)};
+
+dir_t joystick_dir = STAY;
+
+///****************************************************************************
+///
+/// FUNCTION IMPLEMENT
+///
+///****************************************************************************
 void Delay1ms(uint32_t t){
 	while(t--){
 		uint16_t x = ONE_MSEC;
@@ -22,11 +50,3 @@ void Delay1us(uint32_t t){
 		while(x--);
 	}
 }
-
-Terrain WoodBox[4] = {Terrain(1, img_wood_box, 5),
-					Terrain(1, img_wood_box, 45),
-					Terrain(1, img_wood_box, 30),
-					Terrain(1, img_wood_box, 89)};
-Entity Character((point_t) {0, 48}, 1, img_character);
-Entity Rival	((point_t) {0, 48}, 1, img_character);
-dir_t joystick_dir = STAY;

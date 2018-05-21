@@ -13,10 +13,9 @@
 #include <inc/tm4c123gh6pm.h>
 #include "config.h"
 #include "image.h"
-#include "Global.h"
 #include "joystick.h"
+#include "Global.h"
 #include "communication.h"
-
 
 char uartNum[2];
 point_t uartPoint;
@@ -28,19 +27,21 @@ int main(void) {
 	LCD_Begin();
 	Joystick_Init();
 	setAddrWindow(0, 0, 239, 319);
-	flood(BLACK, 240*320);
+	flood(WHITE, TFTHEIGHT*TFTWIDTH);
 
-	WoodBox[0].Draw();
-	WoodBox[1].Draw();
-	WoodBox[2].Draw();
-	WoodBox[3].Draw();
+	Character Superman((point_t) {0, 48}, 1, superman, 6, 2, 1);
+	Character Rival((point_t) {0, 48}, 1, superman, 6, 2, 1);
+
+	for(int i = 0; i < 16; i++)
+		WoodBox[i]->Draw();
+	Superman.Draw();
 
 	while(1) {
 		Delay1ms(30);
-		Character.Draw();
-		Character.Move(joystick_dir, 2);
-		UARTCharPutNonBlocking(UART_BASE,	(uint8_t) (Character.point.x));
-		UARTCharPutNonBlocking(UART_BASE,	(uint8_t) (Character.point.y));
+		Superman.Draw();
+		Superman.Move(joystick_dir, 2);
+		UARTCharPutNonBlocking(UART_BASE,	(uint8_t) (Superman.point.x));
+		UARTCharPutNonBlocking(UART_BASE,	(uint8_t) (Superman.point.y));
 //		UARTCharPut(UART0_BASE, '\n');
 //		UARTCharPut(UART0_BASE, 'x');
 //		UARTCharPut(UART0_BASE, ':');
@@ -57,5 +58,22 @@ int main(void) {
 		uartPoint.y = uartNum[1];
 		Rival.SetPoint(uartPoint);
 		Rival.Draw();
+		if(1 == semaphore_systick)
+		{
+			/* Clear semaphore and wait for next interrupt */
+			semaphore_systick = 0;
+
+			ADCProcessorTrigger(ADC0_BASE, 2);
+			Superman.Move(joystick_dir);
+			Superman.WaitBoomExplode();
+		}
+
+		if(1 == semaphore_sw)
+		{
+			/* Clear semaphore and wait for next interrupt */
+			semaphore_sw = 0;
+
+			Superman.SetBoom();
+		}
 	}
 }

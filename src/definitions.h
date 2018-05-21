@@ -17,30 +17,45 @@ extern "C"
 /// DEFINE
 ///
 ///****************************************************************************
-#define PORTE_PIN_USE 0x1F
-#define PORTB_PIN_USE 0xFF
+#define TRUE 						1
+#define FALSE						0
+
+/*
+ * Pre-processor define
+ */
+#define USE_SWITCH_ISR				1
+
+#define PORTE_PIN_USE 				0x1F
+#define PORTB_PIN_USE 				0xFF
 
 #define ONE_MSEC 13333
 #define ONE_USEC 14
 
+/* Number of clock use in timer or systick reload to interrupt at FPS */
+#define FPS							50
+#define CPU_FREQ					80000000
+#define FPS2CLK						(CPU_FREQ / FPS - 1)
+
 /*
  * Define for map
  */
-#define SQUARE_SIZE_PIXEL 			24
+#define SQUARE_EDGE_PIXEL 			24
 #define MAP_WIDTH					10
 #define MAP_LENGTH					10
-#define MAX_IDX						(MAP_WIDTH * MAP_LENGTH)
 #define Y_MAP_OFFSET				48
 #define X_MAP_OFFSET				0
+
+#define MAX_IDX						(MAP_WIDTH * MAP_LENGTH)
+#define SQUARE_PIXEL				(SQUARE_EDGE_PIXEL * SQUARE_EDGE_PIXEL)
 
 ///****************************************************************************
 ///
 /// TYPEDEF
 ///
 ///****************************************************************************
-///
-/// Use for Entity class
-///
+/*
+ *  Use for Entity class
+ */
 typedef int16_t coordinates_t;
 
 typedef struct {
@@ -58,12 +73,25 @@ typedef enum {
 
 typedef int16_t life_t;
 typedef int16_t distance_t;
+typedef int16_t speed_t;
 
-///
-/// Use for Terrain class
-///
+/*
+ * Use for Terrain class
+ */
 /* Terrain index read from left to right, up to down */
-typedef uint8_t terr_idx_t;
+typedef int16_t terr_idx_t;
+
+typedef enum {
+	BACKGROUND,
+	WOOD_BOX,
+	BOOM
+}map_t;
+
+/*
+ * Use for Boom class
+ */
+/* Use for timeout for boom calculate by number of frame */
+typedef int16_t time_t;
 
 #ifdef __cplusplus
 }
