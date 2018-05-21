@@ -20,8 +20,7 @@ Entity::Entity(point_t _point, life_t _life, image_t _image)
 
 void Entity::SetPoint(point_t _point)
 {
-	point.x = _point.x;
-	point.y = _point.y;
+	point = _point;
 }
 
 void Entity::SetImage(image_t _image)

@@ -27,7 +27,6 @@ extern "C"
 ///****************************************************************************
 extern bool semaphore_systick;
 extern bool semaphore_sw;
-
 extern Terrain* WoodBox[16];
 extern dir_t joystick_dir;
 

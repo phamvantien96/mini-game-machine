@@ -18,15 +18,16 @@ extern "C"
 #include <stdint.h>
 #include <driverlib/sysctl.h>
 #include <driverlib/adc.h>
+#include <driverlib/timer.h>
 #include <inc/hw_memmap.h>
 #include "definitions.h"
 
 #define ADC_BASE 		ADC0_BASE
 #define ADC_SEQUENCE 	2
 #define ADC_INT_SS		ADC_INT_SS2
-#define CH_X 			ADC_CTL_CH4
+#define CH_X 			ADC_CTL_CH5
 #define CH_X_STEP 		0
-#define CH_Y 			ADC_CTL_CH5
+#define CH_Y 			ADC_CTL_CH4
 #define CH_Y_STEP 		1
 
 #if CH_Y_STEP
@@ -42,8 +43,10 @@ extern "C"
 #endif
 
 
-void ADC_Init(void);
+void Joystick_Init(void);
 void Joystick_Handler(void);
+void Timer0A_Handler(void);
+void Timer0B_Handler(void);
 
 #ifdef __cplusplus
 }
