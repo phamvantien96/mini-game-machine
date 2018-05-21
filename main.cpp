@@ -25,7 +25,7 @@ int main(void){
 	ADC_Init();
 	flood(WHITE, TFTHEIGHT*TFTWIDTH);
 
-	Character Superman((point_t) {0, 48}, 1, superman, 6, 1, 1);
+	Character Superman((point_t) {0, 48}, 1, superman, 6, 2, 1);
 
 	for(int i = 0; i < 16; i++)
 		WoodBox[i]->Draw();

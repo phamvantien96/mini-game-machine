@@ -44,14 +44,14 @@ extern uint16_t * GetImageFromIdx(terr_idx_t idx);
 ///****************************************************************************
 class Character:public Entity {
 public:
-	uint8_t boomAmount;
-	uint8_t boomAmountCurr;
-	uint8_t boomLength;
+	int8_t boomAmount;
+	int8_t boomAmountCurr;
+	int8_t boomLength;
 	speed_t speed;
 	std::vector<Boom> boomVector;
 public:
 	Character(point_t _point, life_t _life, image_t _image,
-			  uint8_t _boomAmount, uint8_t _boomLength, speed_t _speed);
+			  int8_t _boomAmount, int8_t _boomLength, speed_t _speed);
 	void IncreaseBoomAmount();
 	void IncreaseBoomLength();
 	void IncreaseSpeed();

@@ -18,6 +18,17 @@ Entity::Entity(point_t _point, life_t _life, image_t _image)
 {
 }
 
+void Entity::SetPoint(point_t _point)
+{
+	point.x = _point.x;
+	point.y = _point.y;
+}
+
+void Entity::SetImage(image_t _image)
+{
+	image = _image;
+}
+
 void Entity::Draw()
 {
 	setAddrWindow(point.x, point.y, point.x + image.numCols - 1, point.y + image.numRows - 1);

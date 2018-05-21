@@ -12,7 +12,7 @@ static void GetBG(point_t pointStart, point_t pointEnd, uint16_t * bgImgPtr);
 ///
 ///****************************************************************************
 Character::Character(point_t _point, life_t _life, image_t _image,
-		 	 	 	 uint8_t _boomAmount, uint8_t _boomLength, speed_t _speed)
+		 	 	 	 int8_t _boomAmount, int8_t _boomLength, speed_t _speed)
 :Entity(_point, _life, _image),
  boomAmount(_boomAmount),
  boomAmountCurr(0),
@@ -190,6 +190,7 @@ void Character::SetBoom()
 			boomAmountCurr++;
 			boomVector[i].life = BOOM_EXIST;
 			boomVector[i].ChangeTerrainIdx(boomIdx, BOOM);
+			boomVector[i].boomLength = boomLength;
 			boomVector[i].Draw();
 
 			return;
@@ -259,9 +260,11 @@ void Character::WaitBoomExplode()
 {
 	for(int i = 0; i < boomAmount; i++)
 	{
-		if(BOOM_EXIST == boomVector[i].life)
-		{
+		if(BOOM_EXIST == boomVector[i].life) {
 			if(TRUE == boomVector[i].WaitExplode())	  boomAmountCurr--;
+		} else {
+			if(NOT_EXPLODE != boomVector[i].timeExplode)
+				boomVector[i].Explode();
 		}
 	}
 }

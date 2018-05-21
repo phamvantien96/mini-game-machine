@@ -43,6 +43,7 @@ public:
 	Entity(image_t _image);
 	Entity(point_t _point, life_t _life, image_t _image);
 	void SetPoint(point_t _point);
+	void SetImage(image_t _image);
 	point_t GetPoint(Entity);
 	void Draw();
 	void Clear();
