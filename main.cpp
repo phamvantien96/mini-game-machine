@@ -37,10 +37,10 @@ int main(void) {
 
 	while(1) {
 		Delay1ms(30);
-//		Character.Draw();
+		Character.Draw();
 		Character.Move(joystick_dir, 2);
-		UARTCharPutNonBlocking(UART0_BASE,	(uint8_t) (Character.point.x));
-		UARTCharPutNonBlocking(UART0_BASE,	(uint8_t) (Character.point.y));
+		UARTCharPutNonBlocking(UART_BASE,	(uint8_t) (Character.point.x));
+		UARTCharPutNonBlocking(UART_BASE,	(uint8_t) (Character.point.y));
 //		UARTCharPut(UART0_BASE, '\n');
 //		UARTCharPut(UART0_BASE, 'x');
 //		UARTCharPut(UART0_BASE, ':');
