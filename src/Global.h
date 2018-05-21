@@ -25,6 +25,7 @@ extern "C"
 ///****************************************************************************
 extern Terrain WoodBox[4];
 extern Entity Character;
+extern Entity Rival;
 extern dir_t joystick_dir;
 
 ///****************************************************************************

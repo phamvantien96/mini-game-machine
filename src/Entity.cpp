@@ -90,6 +90,10 @@ void Entity::Move(dir_t _dir, distance_t distance)
 		Draw();
 }
 
+void Entity::SetPoint(point_t _point)
+{
+	point = _point;
+}
 
 void Entity::Draw()
 {
@@ -98,11 +102,6 @@ void Entity::Draw()
 	pushColors(image.image, image.numCols * image.numRows, 1);
 }
 
-/** @breif Entity::Clear
- *
- * 	Default clear entity with BLACK color
- *
- */
 void Entity::Clear()
 {
 	setAddrWindow(point.x, point.y, point.x + image.numCols - 1, point.y + image.numRows - 1);

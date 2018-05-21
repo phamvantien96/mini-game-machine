@@ -31,8 +31,8 @@ void Joystick_Init(void)
 	while(!SysCtlPeripheralReady(SYSCTL_PERIPH_TIMER0))
 	{ }
 	TimerConfigure(TIMER0_BASE, (TIMER_CFG_SPLIT_PAIR | TIMER_CFG_A_PERIODIC | TIMER_CFG_B_PERIODIC));
-	TimerLoadSet(TIMER0_BASE, TIMER_A, 65500);
-	TimerLoadSet(TIMER0_BASE, TIMER_B, 65500);
+	TimerLoadSet(TIMER0_BASE, TIMER_A, 65535);
+	TimerLoadSet(TIMER0_BASE, TIMER_B, 65535);
 	TimerEnable(TIMER0_BASE, TIMER_BOTH);
 	TimerIntRegister(TIMER0_BASE, TIMER_A, Timer0A_Handler);
 	TimerIntEnable(TIMER0_BASE, TIMER_TIMA_TIMEOUT);

@@ -28,4 +28,5 @@ Terrain WoodBox[4] = {Terrain(1, img_wood_box, 5),
 					Terrain(1, img_wood_box, 30),
 					Terrain(1, img_wood_box, 89)};
 Entity Character((point_t) {0, 48}, 1, img_character);
+Entity Rival	((point_t) {0, 48}, 1, img_character);
 dir_t joystick_dir = STAY;
