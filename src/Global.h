@@ -27,9 +27,12 @@ extern "C"
 ///****************************************************************************
 extern bool semaphore_systick;
 extern bool semaphore_sw;
+extern bool semaphore_uart;
+
+extern uint8_t uart_rx_data;
 extern Terrain* WoodBox[16];
 extern dir_t joystick_dir;
-
+extern dir_t uart_dir;
 ///****************************************************************************
 ///
 /// FUNCTION PROTOTYPE

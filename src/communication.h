@@ -23,6 +23,12 @@ extern "C"
 #include "inc/hw_gpio.h"
 #include <inc/tm4c123gh6pm.h>
 #include "driverlib/pin_map.h"
+#include "definitions.h"
+
+extern point_t rival_point;
+extern bool	rival_bomb;
+extern bool semaphore_uart;
+extern bool semaphore_comm;
 
 #define	SYSCTL_PERIPH_UART		SYSCTL_PERIPH_UART3
 #define	UART_BASE				UART3_BASE

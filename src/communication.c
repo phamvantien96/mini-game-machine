@@ -7,7 +7,7 @@
 
 #include "communication.h"
 
-extern char uartNum[2];
+extern uint8_t uart_rx_data;
 
 void Communication_Init(void)
 {
@@ -33,13 +33,7 @@ void Communication_Init(void)
 
 void Communication_Handler(void)
 {
-	static uint8_t cnt;
 	UARTIntClear(UART_BASE, UART_INT_RX);
-//	while(UARTCharsAvail(UART_BASE))
-//    {
-//        UARTCharPutNonBlocking(UART_BASE, UARTCharGetNonBlocking(UART_BASE));
-//	}
-//	UARTCharPutNonBlocking(UART_BASE, '\n');
-	uartNum[cnt] = UARTCharGetNonBlocking(UART_BASE);
-	cnt ^= 1;
+	uart_rx_data = (uint8_t) (UARTCharGetNonBlocking(UART_BASE));
+	semaphore_uart = 1;
 }
