@@ -67,7 +67,7 @@ void Joystick_Handler(void)
 void Timer0A_Handler(void)
 {
 	TimerIntClear(TIMER0_BASE, TIMER_TIMA_TIMEOUT);
-	ADCProcessorTrigger(ADC0_BASE, 2);
+//	ADCProcessorTrigger(ADC0_BASE, 2);
 }
 
 

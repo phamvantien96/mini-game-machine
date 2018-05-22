@@ -17,12 +17,13 @@ extern "C"
 /// DEFINE AND MARCO
 ///
 ///****************************************************************************
-#define BOOM_TIMEOUT		(2 * FPS)
-#define EXPLODE_TIME		(FPS)
-#define BOOM_EXIST			1
-#define BOOM_NOT_EXIST		0
+#define BOOM_TIMEOUT		(3 * FPS)
+#define EXPLODE_TIME		(FPS / 10)
+#define NOT_EXPLODE			-7869
 
-#define NOT_EXPLODE			-1
+/* Boom life encode */
+#define NOT_PLANT			0
+#define PLANTED				1
 
 #define DEFAULT_BOOM_LEN	1
 
@@ -46,8 +47,8 @@ public:
 public:
 	Boom();
 	Boom(life_t _life, image_t _image, terr_idx_t _boomIdx, int8_t _boomLength);
-	bool WaitExplode();
-	void Explode();
+	bool CheckExplode();
+	void Exploding();
 };
 
 #ifdef __cplusplus

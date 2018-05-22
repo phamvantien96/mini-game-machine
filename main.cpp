@@ -26,38 +26,17 @@ int main(void) {
 	LCD_Reset();
 	LCD_Begin();
 	Joystick_Init();
-	setAddrWindow(0, 0, 239, 319);
+	setAddrWindow(0, 0, TFTWIDTH - 1, TFTHEIGHT - 1);
 	flood(WHITE, TFTHEIGHT*TFTWIDTH);
 
-	Character Superman((point_t) {0, 48}, 1, superman, 6, 2, 1);
-	Character Rival((point_t) {0, 48}, 1, superman, 6, 2, 1);
+	Character Superman((point_t) {0, 48}, 1, superman, 6, 2, 2);
+//	Character Rival((point_t) {0, 48}, 1, superman, 6, 2, 1);
 
 	for(int i = 0; i < 16; i++)
 		WoodBox[i]->Draw();
 	Superman.Draw();
 
 	while(1) {
-		Delay1ms(30);
-		Superman.Draw();
-		Superman.Move(joystick_dir, 2);
-		UARTCharPutNonBlocking(UART_BASE,	(uint8_t) (Superman.point.x));
-		UARTCharPutNonBlocking(UART_BASE,	(uint8_t) (Superman.point.y));
-//		UARTCharPut(UART0_BASE, '\n');
-//		UARTCharPut(UART0_BASE, 'x');
-//		UARTCharPut(UART0_BASE, ':');
-//		UARTCharPut(UART0_BASE,	(uint8_t) ((Character.point.x / 100) + 48));
-//		UARTCharPut(UART0_BASE,	(uint8_t) ((Character.point.x / 10 % 10) + 48));
-//		UARTCharPut(UART0_BASE,	(uint8_t) ((Character.point.x % 10) + 48));
-//		UARTCharPut(UART0_BASE, ' ');
-//		UARTCharPut(UART0_BASE, 'y');
-//		UARTCharPut(UART0_BASE, ':');
-//		UARTCharPut(UART0_BASE,	(uint8_t) ((Character.point.y / 100) + 48));
-//		UARTCharPut(UART0_BASE,	(uint8_t) ((Character.point.y / 10 % 10) + 48));
-//		UARTCharPut(UART0_BASE,	(uint8_t) ((Character.point.y % 10) + 48));
-		uartPoint.x = uartNum[0];
-		uartPoint.y = uartNum[1];
-		Rival.SetPoint(uartPoint);
-		Rival.Draw();
 		if(1 == semaphore_systick)
 		{
 			/* Clear semaphore and wait for next interrupt */
