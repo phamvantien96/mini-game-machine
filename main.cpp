@@ -23,7 +23,7 @@ int main(void) {
 	LCD_Begin();
 	Joystick_Init();
 
-	setAddrWindow(0, 0, 239, 319);
+	setAddrWindow(0, 0, TFTWIDTH - 1, TFTHEIGHT - 1);
 	flood(WHITE, TFTHEIGHT*TFTWIDTH);
 
 #if		(CONSOLE_ID == 1)

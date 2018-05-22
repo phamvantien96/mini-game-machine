@@ -176,7 +176,7 @@ void Character::SetBoom()
 	/* If an index have a boom then no action */
 	for(int i = 0; i < boomAmount; i++)
 	{
-		if(BOOM_EXIST == boomVector[i].life)
+		if(PLANTED == boomVector[i].life)
 		{
 			if(boomVector[i].terrainIdx == boomIdx)    return;
 		}
@@ -185,10 +185,10 @@ void Character::SetBoom()
 	/* Find a empty Boom object on boomVector to create a new boom */
 	for(int i = 0; i < boomAmount; i++)
 	{
-		if(BOOM_NOT_EXIST == boomVector[i].life)
+		if(NOT_PLANT == boomVector[i].life)
 		{
 			boomAmountCurr++;
-			boomVector[i].life = BOOM_EXIST;
+			boomVector[i].life = PLANTED;
 			boomVector[i].ChangeTerrainIdx(boomIdx, BOOM);
 			boomVector[i].boomLength = boomLength;
 			boomVector[i].Draw();
@@ -260,11 +260,26 @@ void Character::WaitBoomExplode()
 {
 	for(int i = 0; i < boomAmount; i++)
 	{
-		if(BOOM_EXIST == boomVector[i].life) {
-			if(TRUE == boomVector[i].WaitExplode())	  boomAmountCurr--;
-		} else {
-			if(NOT_EXPLODE != boomVector[i].timeExplode)
-				boomVector[i].Explode();
+		if(PLANTED == boomVector[i].life)
+		{
+			if(TRUE == boomVector[i].CheckExplode())
+			{
+				boomAmountCurr--;
+				boomVector[i].Clear();
+
+				map_terrain[boomVector[i].terrainIdx] = BACKGROUND;
+				boomVector[i].life = NOT_PLANT;
+				boomVector[i].timeLife = BOOM_TIMEOUT;
+				boomVector[i].timeExplode = EXPLODE_TIME;
+			}
+		}
+	}
+
+	for(int i = 0; i < boomAmount; i++)
+	{
+		if(NOT_EXPLODE != boomVector[i].timeExplode)
+		{
+			boomVector[i].Exploding();
 		}
 	}
 }

@@ -175,6 +175,74 @@ coordinates_t GetClosestTerrain(terr_idx_t _idx_st, terr_idx_t _idx_nd, dir_t _d
 	return closestCoordinate;
 }
 
+uint8_t GetDistance2ClosestBomb(terr_idx_t idx, dir_t dir)
+{
+	uint8_t distance;
+	terr_idx_t _idx = idx;
+
+	switch(dir)
+	{
+	case LEFT:
+		distance = _idx % MAP_WIDTH;
+
+		while (0 != (_idx % MAP_WIDTH)) {
+			_idx--;
+
+			if (BOOM == map_terrain[idx])
+			{
+				distance = idx - _idx + 1;
+				break;
+			}
+		}
+
+		break;
+	case RIGHT:
+		distance = _idx % MAP_WIDTH;
+
+		while (0 != (_idx % MAP_WIDTH)) {
+			_idx--;
+
+			if (BOOM == map_terrain[idx])
+			{
+				distance = idx - _idx;
+				break;
+			}
+		}
+
+		break;
+	case UP:
+		distance = _idx % MAP_WIDTH;
+
+		while (0 != (_idx % MAP_WIDTH)) {
+			_idx--;
+
+			if (BOOM == map_terrain[idx])
+			{
+				distance = idx - _idx;
+				break;
+			}
+		}
+
+		break;
+	case DOWN:
+		distance = _idx % MAP_WIDTH;
+
+		while (0 != (_idx % MAP_WIDTH)) {
+			_idx--;
+
+			if (BOOM == map_terrain[idx])
+			{
+				distance = idx - _idx;
+				break;
+			}
+		}
+
+		break;
+	}
+
+	return distance;
+}
+
 uint16_t * GetImageFromIdx(terr_idx_t idx)
 {
 	uint16_t * _bg;
