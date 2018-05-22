@@ -32,7 +32,7 @@ extern "C"
 #define ONE_USEC 14
 
 /* Number of clock use in timer or systick reload to interrupt at FPS */
-#define FPS							50
+#define FPS							25
 #define CPU_FREQ					80000000
 #define FPS2CLK						(CPU_FREQ / FPS - 1)
 

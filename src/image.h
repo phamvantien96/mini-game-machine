@@ -10,6 +10,7 @@ typedef struct {
 } image_t;
 
 extern const image_t superman;
+extern const image_t batman;
 extern const image_t wood_box;
 extern const image_t black_boom;
 extern const image_t back_ground;
