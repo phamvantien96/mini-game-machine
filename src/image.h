@@ -11,11 +11,12 @@ typedef struct {
 
 extern const image_t superman;
 extern const image_t batman;
+extern const image_t background;
 extern const image_t wood_box;
 extern const image_t black_boom;
-extern const image_t back_ground;
 extern const image_t center_explode;
 extern const image_t horizontal_explode;
 extern const image_t vertical_explode;
+extern const image_t title;
 
 #endif /* image.h */

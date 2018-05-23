@@ -191,7 +191,6 @@ void drawRGBBitmap(int16_t x, int16_t y, const uint16_t bitmap[], int16_t w, int
     uint32_t len = w*h;
     setAddrWindow(x, y, x+w-1, y+h-1);
     pushColors(bitmap, len, 1);
-
 }
 
 
