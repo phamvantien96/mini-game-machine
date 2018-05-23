@@ -44,7 +44,7 @@ void Entity::Clear()
 {
 	setAddrWindow(point.x, point.y, point.x + image.numCols - 1, point.y + image.numRows - 1);
 
-	pushColors(back_ground.image, back_ground.numCols * back_ground.numRows, 1);
+	pushColors(background.image, background.numCols * background.numRows, 1);
 }
 
 void Entity::Destroy()

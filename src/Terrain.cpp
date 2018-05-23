@@ -181,7 +181,7 @@ uint16_t * GetImageFromIdx(terr_idx_t idx)
 	switch(map_terrain[idx])
 	{
 	case BACKGROUND:
-		_bg = back_ground.image;
+		_bg = background.image;
 		break;
 	case WOOD_BOX:
 		_bg = wood_box.image;

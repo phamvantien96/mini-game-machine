@@ -23,21 +23,15 @@ int main(void) {
 	LCD_Reset();
 	LCD_Begin();
 	Joystick_Init();
+	Map_Init();
 
-	setAddrWindow(0, 0, TFTWIDTH - 1, TFTHEIGHT - 1);
-	flood(WHITE, TFTHEIGHT*TFTWIDTH);
-
-#if		(CONSOLE_ID == 1)
+#if CONSOLE_ID == 1
 	Character Main	((point_t) {0, 48}, 1, superman,	6, 2, 1);
 	Character Rival	((point_t) {0, 48}, 1, batman,		6, 2, 1);
 #else
 	Character Main	((point_t) {0, 48}, 1, batman,		6, 2, 1);
 	Character Rival	((point_t) {0, 48}, 1, superman,	6, 2, 1);
 #endif
-
-	for(int i = 0; i < 16; i++)
-		WoodBox[i]->Draw();
-	Main.Draw();
 
 	Communication_Init();
 

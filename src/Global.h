@@ -14,6 +14,7 @@
 #include "Entity.h"
 #include "Terrain.h"
 #include "Character.h"
+#include "lcd_driver.h"
 
 #ifdef __cplusplus
 extern "C" 
@@ -38,9 +39,10 @@ extern dir_t uart_dir;
 /// FUNCTION PROTOTYPE
 ///
 ///****************************************************************************
-void Init(void);
 void Delay1ms(uint32_t t);
 void Delay1us(uint32_t t);
+void DrawBackground(void);
+void Map_Init(void);
 
 #ifdef __cplusplus
 }
