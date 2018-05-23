@@ -1,4 +1,4 @@
-/** @file wood_box.c
+/** @file background.c
  *  @author Tien.P.V
  *  @date 12-May-2018
  */

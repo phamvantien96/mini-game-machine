@@ -4,9 +4,10 @@
  */
 
 #include "Boom.h"
+#include <stdio.h>
 
 Boom::Boom()
-:Terrain(NOT_PLANT, black_boom, NULL_TERRAIN, BACKGROUND),
+:Terrain(UNPLANT, black_boom, NULL_TERRAIN, BACKGROUND),
  timeLife(BOOM_TIMEOUT), timeExplode(NOT_EXPLODE),
  boomLength(DEFAULT_BOOM_LEN)
 {
@@ -31,44 +32,36 @@ bool Boom::CheckExplode()
 
 void Boom::Exploding()
 {
-	static int8_t leftExplodeLength;
-	static int8_t rightExplodeLength;
-	static int8_t upExplodeLength;
-	static int8_t downExplodeLength;
+	int8_t leftExplodeLength;
+	int8_t rightExplodeLength;
+	int8_t upExplodeLength;
+	int8_t downExplodeLength;
 
-	static Terrain * CenterExplode;
-	static Terrain * LeftExplode;
-	static Terrain * RightExplode;
-	static Terrain * UpExplode;
-	static Terrain * DownExplode;
+	Terrain * CenterExplode;
+	Terrain * LeftExplode;
+	Terrain * RightExplode;
+	Terrain * UpExplode;
+	Terrain * DownExplode;
 
 	if(timeExplode == EXPLODE_TIME)
 	{
 		/* Set explode length for every direction
 		 * in order to left, right, up, down */
-		if(0 <= (terrainIdx % MAP_WIDTH) - boomLength) {
+		leftExplodeLength = GetDistance2ClosestBomb(terrainIdx, LEFT);
+		if(leftExplodeLength > boomLength)
 			leftExplodeLength = boomLength;
-		} else {
-			leftExplodeLength = terrainIdx % MAP_WIDTH;
-		}
 
-		if((MAP_WIDTH - 1) >= (terrainIdx % MAP_WIDTH) + boomLength) {
+		rightExplodeLength = GetDistance2ClosestBomb(terrainIdx, RIGHT);
+		if(rightExplodeLength > boomLength)
 			rightExplodeLength = boomLength;
-		} else {
-			rightExplodeLength = (MAP_WIDTH - 1) - (terrainIdx % MAP_WIDTH);
-		}
 
-		if(0 <= (terrainIdx / MAP_LENGTH) - boomLength) {
+		upExplodeLength = GetDistance2ClosestBomb(terrainIdx, UP);
+		if(upExplodeLength > boomLength)
 			upExplodeLength = boomLength;
-		} else {
-			upExplodeLength = terrainIdx / MAP_WIDTH;
-		}
 
-		if((MAP_LENGTH - 1) >= (terrainIdx / MAP_WIDTH) + boomLength) {
+		downExplodeLength = GetDistance2ClosestBomb(terrainIdx, DOWN);
+		if(downExplodeLength > boomLength)
 			downExplodeLength = boomLength;
-		} else {
-			downExplodeLength = (MAP_LENGTH - 1) - (terrainIdx / MAP_WIDTH);
-		}
 
 		CenterExplode	= new Terrain;
 		LeftExplode		= new Terrain[leftExplodeLength];
@@ -76,6 +69,7 @@ void Boom::Exploding()
 		UpExplode	    = new Terrain[upExplodeLength];
 		DownExplode		= new Terrain[downExplodeLength];
 
+		/* Draw explode and clear map_terrain */
 		CenterExplode->ChangeTerrainIdx(terrainIdx, BACKGROUND);
 		CenterExplode->image = center_explode;
 		CenterExplode->Draw();
@@ -120,5 +114,88 @@ void Boom::Exploding()
 		delete [] RightExplode;
 		delete [] UpExplode;
 		delete [] DownExplode;
+
+		CenterExplode = NULL;
+		LeftExplode   = NULL;
+		RightExplode  = NULL;
+		UpExplode     = NULL;
+		DownExplode   = NULL;
 	}
+}
+
+uint8_t GetDistance2ClosestBomb(terr_idx_t idx, dir_t dir)
+{
+	uint8_t distance = 0;
+	terr_idx_t _idx = idx;
+
+	switch(dir)
+	{
+	case LEFT:
+		distance = _idx % MAP_WIDTH;
+
+		while (0 != (_idx % MAP_WIDTH)) {
+			_idx--;
+
+			if (BOOM == map_terrain[_idx])
+			{
+				distance = idx - _idx - 1;
+				break;
+			}
+		}
+
+		break;
+	case RIGHT:
+		distance = (MAP_WIDTH - 1) - (_idx % MAP_WIDTH);
+
+		while ((MAP_WIDTH - 1) != (_idx % MAP_WIDTH)) {
+			_idx++;
+
+			if (BOOM == map_terrain[_idx])
+			{
+				distance = _idx - idx - 1;
+				break;
+			}
+		}
+
+		break;
+	case UP:
+		distance = _idx / MAP_WIDTH;
+
+		while (0 != (_idx / MAP_WIDTH)) {
+			_idx -= MAP_WIDTH;
+
+			if (BOOM == map_terrain[_idx])
+			{
+				distance = ((idx - _idx) / MAP_WIDTH) - 1;
+				break;
+			}
+		}
+
+		break;
+	case DOWN:
+		distance = (MAP_LENGTH - 1) - (_idx / MAP_WIDTH);
+
+		while ((MAP_LENGTH - 1) != (_idx / MAP_WIDTH)) {
+			_idx += MAP_WIDTH;
+
+			if (BOOM == map_terrain[_idx])
+			{
+				distance = ((_idx - idx) / MAP_WIDTH) - 1;
+				break;
+			}
+		}
+
+		break;
+	}
+
+	return distance;
+}
+
+void Boom::UnsetBomb()
+{
+	Clear();
+
+	map_terrain[terrainIdx] = BACKGROUND;
+	life = UNPLANT;
+	timeLife = BOOM_TIMEOUT;
 }

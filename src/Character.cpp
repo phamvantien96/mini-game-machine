@@ -176,7 +176,7 @@ void Character::SetBoom()
 	/* If an index have a boom then no action */
 	for(int i = 0; i < boomAmount; i++)
 	{
-		if(PLANTED == boomVector[i].life)
+		if(PLANT == boomVector[i].life)
 		{
 			if(boomVector[i].terrainIdx == boomIdx)    return;
 		}
@@ -185,10 +185,10 @@ void Character::SetBoom()
 	/* Find a empty Boom object on boomVector to create a new boom */
 	for(int i = 0; i < boomAmount; i++)
 	{
-		if(NOT_PLANT == boomVector[i].life)
+		if(UNPLANT == boomVector[i].life)
 		{
 			boomAmountCurr++;
-			boomVector[i].life = PLANTED;
+			boomVector[i].life = PLANT;
 			boomVector[i].ChangeTerrainIdx(boomIdx, BOOM);
 			boomVector[i].boomLength = boomLength;
 			boomVector[i].Draw();
@@ -260,16 +260,15 @@ void Character::WaitBoomExplode()
 {
 	for(int i = 0; i < boomAmount; i++)
 	{
-		if(PLANTED == boomVector[i].life)
+		if(PLANT == boomVector[i].life)
 		{
 			if(TRUE == boomVector[i].CheckExplode())
 			{
 				boomAmountCurr--;
-				boomVector[i].Clear();
+				boomVector[i].UnsetBomb();
 
-				map_terrain[boomVector[i].terrainIdx] = BACKGROUND;
-				boomVector[i].life = NOT_PLANT;
-				boomVector[i].timeLife = BOOM_TIMEOUT;
+				BombChain(boomVector[i].terrainIdx);
+
 				boomVector[i].timeExplode = EXPLODE_TIME;
 			}
 		}
@@ -280,6 +279,34 @@ void Character::WaitBoomExplode()
 		if(NOT_EXPLODE != boomVector[i].timeExplode)
 		{
 			boomVector[i].Exploding();
+		}
+	}
+}
+
+void Character::BombChain(terr_idx_t idx)
+{
+	uint8_t distance2Bomb = 0;
+	terr_idx_t bombChainIdx;
+
+	distance2Bomb = GetDistance2ClosestBomb(idx, LEFT);
+	if(distance2Bomb < boomLength)
+	{
+		bombChainIdx = idx - distance2Bomb - 1;
+
+		if((bombChainIdx / MAP_WIDTH) == (idx / MAP_WIDTH))
+		{
+			for(int i = 0; i < boomAmount; i++)
+			{
+				if((PLANT == boomVector[i].life) &&
+						(bombChainIdx == boomVector[i].terrainIdx))
+				{
+					boomAmountCurr--;
+					boomVector[i].UnsetBomb();
+
+					BombChain(boomVector[i].terrainIdx);
+					boomVector[i].timeExplode = EXPLODE_TIME;
+				}
+			}
 		}
 	}
 }

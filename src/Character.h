@@ -59,6 +59,7 @@ public:
 	void Move(dir_t _dir, distance_t distance);
 	void SetBoom();
 	void WaitBoomExplode();
+	void BombChain(terr_idx_t idx);
 };
 
 #ifdef __cplusplus

@@ -22,8 +22,8 @@ extern "C"
 #define NOT_EXPLODE			-7869
 
 /* Boom life encode */
-#define NOT_PLANT			0
-#define PLANTED				1
+#define UNPLANT				0
+#define PLANT				1
 
 #define DEFAULT_BOOM_LEN	1
 
@@ -33,6 +33,13 @@ extern "C"
 ///
 ///****************************************************************************
 extern uint16_t * GetImageFromIdx(terr_idx_t idx);
+
+///****************************************************************************
+///
+/// FUNCTION PROTOTYPE
+///
+///****************************************************************************
+uint8_t GetDistance2ClosestBomb(terr_idx_t idx, dir_t dir);
 
 ///****************************************************************************
 ///
@@ -47,6 +54,7 @@ public:
 public:
 	Boom();
 	Boom(life_t _life, image_t _image, terr_idx_t _boomIdx, int8_t _boomLength);
+	void UnsetBomb();
 	bool CheckExplode();
 	void Exploding();
 };
