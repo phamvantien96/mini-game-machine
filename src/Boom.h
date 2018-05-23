@@ -18,7 +18,7 @@ extern "C"
 ///
 ///****************************************************************************
 #define BOOM_TIMEOUT		(3 * FPS)
-#define EXPLODE_TIME		(FPS / 10)
+#define EXPLODE_TIME		(FPS / 5)
 #define NOT_EXPLODE			-7869
 
 /* Boom life encode */
@@ -51,6 +51,12 @@ public:
 	time_t timeLife;
 	time_t timeExplode;
 	int8_t boomLength;
+
+	Terrain * CenterExplode;
+	Terrain * LeftExplode;
+	Terrain * RightExplode;
+	Terrain * UpExplode;
+	Terrain * DownExplode;
 public:
 	Boom();
 	Boom(life_t _life, image_t _image, terr_idx_t _boomIdx, int8_t _boomLength);

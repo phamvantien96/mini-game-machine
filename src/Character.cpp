@@ -291,7 +291,7 @@ void Character::BombChain(terr_idx_t idx)
 	distance2Bomb = GetDistance2ClosestBomb(idx, LEFT);
 	if(distance2Bomb < boomLength)
 	{
-		bombChainIdx = idx - distance2Bomb - 1;
+		bombChainIdx = idx - (distance2Bomb + 1);
 
 		if((bombChainIdx / MAP_WIDTH) == (idx / MAP_WIDTH))
 		{
@@ -300,6 +300,60 @@ void Character::BombChain(terr_idx_t idx)
 				if((PLANT == boomVector[i].life) &&
 						(bombChainIdx == boomVector[i].terrainIdx))
 				{
+					boomAmountCurr--;
+					boomVector[i].UnsetBomb();
+
+					BombChain(boomVector[i].terrainIdx);
+					boomVector[i].timeExplode = EXPLODE_TIME;
+				}
+			}
+		}
+	}
+
+	distance2Bomb = GetDistance2ClosestBomb(idx, RIGHT);
+	if (distance2Bomb < boomLength) {
+		bombChainIdx = idx + (distance2Bomb + 1);
+
+		if ((bombChainIdx / MAP_WIDTH) == (idx / MAP_WIDTH)) {
+			for (int i = 0; i < boomAmount; i++) {
+				if ((PLANT == boomVector[i].life)
+						&& (bombChainIdx == boomVector[i].terrainIdx)) {
+					boomAmountCurr--;
+					boomVector[i].UnsetBomb();
+
+					BombChain(boomVector[i].terrainIdx);
+					boomVector[i].timeExplode = EXPLODE_TIME;
+				}
+			}
+		}
+	}
+
+	distance2Bomb = GetDistance2ClosestBomb(idx, UP);
+	if (distance2Bomb < boomLength) {
+		bombChainIdx = idx - (distance2Bomb + 1) * MAP_WIDTH;
+
+		if (bombChainIdx >= 0) {
+			for (int i = 0; i < boomAmount; i++) {
+				if ((PLANT == boomVector[i].life)
+						&& (bombChainIdx == boomVector[i].terrainIdx)) {
+					boomAmountCurr--;
+					boomVector[i].UnsetBomb();
+
+					BombChain(boomVector[i].terrainIdx);
+					boomVector[i].timeExplode = EXPLODE_TIME;
+				}
+			}
+		}
+	}
+
+	distance2Bomb = GetDistance2ClosestBomb(idx, DOWN);
+	if (distance2Bomb < boomLength) {
+		bombChainIdx = idx + (distance2Bomb + 1) * MAP_WIDTH;
+
+		if (bombChainIdx < 100) {
+			for (int i = 0; i < boomAmount; i++) {
+				if ((PLANT == boomVector[i].life)
+						&& (bombChainIdx == boomVector[i].terrainIdx)) {
 					boomAmountCurr--;
 					boomVector[i].UnsetBomb();
 

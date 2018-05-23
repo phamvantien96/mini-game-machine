@@ -37,12 +37,6 @@ void Boom::Exploding()
 	int8_t upExplodeLength;
 	int8_t downExplodeLength;
 
-	Terrain * CenterExplode;
-	Terrain * LeftExplode;
-	Terrain * RightExplode;
-	Terrain * UpExplode;
-	Terrain * DownExplode;
-
 	if(timeExplode == EXPLODE_TIME)
 	{
 		/* Set explode length for every direction
